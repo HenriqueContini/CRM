@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AwareCRM from '../components/AwareCRM';
 import UserCRM from '../components/UserCRM';
 import './Home.css';
 
@@ -14,6 +15,7 @@ const Home = () => {
             </nav>
 
             {content === 'userCRM' && <UserCRM />}
+            {content === 'awareCRM' && <AwareCRM />}
         </section>
     );
 }
