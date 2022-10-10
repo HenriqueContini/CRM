@@ -1,6 +1,6 @@
 import CardCRM from './CardCRM';
 import { BiSearchAlt2 } from 'react-icons/bi'
-import './UserCRM.css';
+import './styles/UserCRM.css';
 
 const UserCRM = () => {
     return (

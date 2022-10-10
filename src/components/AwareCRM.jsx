@@ -1,6 +1,6 @@
 import CardCRM from './CardCRM';
 import { BiSearchAlt2 } from 'react-icons/bi'
-import './AwareCRM.css';
+import './styles/AwareCRM.css';
 
 const AwareCRM = () => {
     return (

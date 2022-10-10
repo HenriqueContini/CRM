@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 
-import './Newcrm.css';
+import './styles/Newcrm.css';
 
 const Newcrm = () => {
     const {register, handleSubmit} = useForm();

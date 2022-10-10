@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import AwareCRM from '../components/AwareCRM';
 import UserCRM from '../components/UserCRM';
-import './Home.css';
+import './styles/Home.css';
 
 const Home = () => {
     const [content, setContent] = useState('userCRM');

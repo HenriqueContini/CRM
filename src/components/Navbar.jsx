@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { AiFillHome, AiFillFileAdd, } from "react-icons/ai";
 import { IoPersonCircle } from "react-icons/io5";
 
-import "./Navbar.css";
+import "./styles/Navbar.css";
 
 const Navbar = () => {
     const [ActiveLink, setActiveLink] = useState('');

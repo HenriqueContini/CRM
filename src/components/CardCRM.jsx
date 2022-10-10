@@ -1,4 +1,4 @@
-import './CardCRM.css';
+import './styles/CardCRM.css';
 
 const CardCRM = () => {
     return (

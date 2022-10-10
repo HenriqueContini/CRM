@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import "./Login.css";
+import "./styles/Login.css";
 
 const Login = () => {
     const { register, handleSubmit } = useForm();
