@@ -39,3 +39,12 @@
 .usercrm-form-button:hover {
     color: var(--blue);
 }
+
+.usercrm-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 50px;
+    justify-content: space-around;
+}

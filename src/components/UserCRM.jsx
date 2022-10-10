@@ -10,7 +10,15 @@ const UserCRM = () => {
                 <button className='usercrm-form-button' type='submit'><BiSearchAlt2 /></button>
             </form>
 
-            <CardCRM />
+            <div className='usercrm-cards'>
+                <CardCRM />
+                <CardCRM />
+                <CardCRM />
+                <CardCRM />
+                <CardCRM />
+                <CardCRM />
+                <CardCRM />
+            </div>
         </section>
     )
 }

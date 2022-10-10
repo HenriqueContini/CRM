@@ -1,0 +1,38 @@
+.card-crm {
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+    row-gap: 10px;
+
+    background-color: var(--white);
+    padding: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.card-crm:hover {
+    background-color: #c4d0e1;
+}
+
+.card-title {
+    color: var(--dark-blue);
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.card-author, .card-date {
+    color: var(--black);
+    text-align: center;
+}
+
+.card-article {
+    background-color: var(--grey);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--black);
+    color: var(--black);
+    max-height: 190px;
+    text-align: justify;
+    overflow: hidden;
+}
