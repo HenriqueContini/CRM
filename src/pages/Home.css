@@ -1,0 +1,26 @@
+.home-nav {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid var(--dark-blue);
+    padding: 0 10px 20px 10px;
+    column-gap: 10px;
+}
+
+.home-nav-button {
+    font-size: 1.3rem;
+    padding: 5px 10px;
+    background-color: var(--white);
+    color: var(--dark-blue);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .6s;
+}
+
+.home-nav-button:hover {
+    color: var(--blue);
+}
+
+.home-nav-button.active {
+    background-color: var(--second-dark-blue);
+    color: var(--grey);
+}
