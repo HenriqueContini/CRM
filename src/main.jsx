@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Newcrm from './pages/Newcrm';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
+import Crm from './pages/Crm';
 
 import './index.css'
 
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     <Route path='/home' element={<Home />} />
                     <Route path='/newcrm' element={<Newcrm />} />
                     <Route path='/profile' element={<Profile />} />
+                    <Route path='/crm' element={<Crm />} />
                 </Route>
             </Routes>
         </BrowserRouter>

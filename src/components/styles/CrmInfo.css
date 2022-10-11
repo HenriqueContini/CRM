@@ -1,0 +1,13 @@
+.crminfo-subtitle {
+    font-size: 1.25rem;
+    color: var(--dark-blue);
+    font-weight: 600;
+    padding: 10px 10px 0 10px;
+    border-top: 1px solid var(--black);
+}
+
+.crminfo-info {
+    font-size: 1.125rem;
+    color: var(--black);
+    padding: 5px 10px 0 20px;
+}
