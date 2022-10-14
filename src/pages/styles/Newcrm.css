@@ -8,6 +8,7 @@
     color: var(--dark-blue);
     font-weight: 400;
     font-size: 1.875rem;
+    text-align: center;
 }
 
 .newcrm-form {
@@ -150,4 +151,14 @@
 
 .newcrm-button:hover {
     background-color: var(--second-dark-blue);
+}
+
+@media screen and (max-width: 768px) {
+    .newcrm-form {
+        width: 100%;
+    }
+
+    .newcrm-fieldset-wrapper, .newcrm-fieldset-files {
+        padding: 0 15px 15px 15px;
+    }
 }

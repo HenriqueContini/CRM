@@ -10,11 +10,13 @@ const Profile = () => {
             <h2 className='profile-name'>Henrique Contini</h2>
             <form className='profile-form'>
                 <label htmlFor="profile-email">E-mail:</label>
-                <input id='profile-email' type="email" {...register('profile-email')} placeholder="E-mail" value={'henrique@gmail.com'}/>
+                <input id='profile-email' type="email" {...register('profile-email')} placeholder="E-mail" value='henrique@gmail.com'/>
+                <label htmlFor="profile-password">Telefone:</label>
+                <input id='profile-tel' type="tel" {...register('profile-tel')} placeholder="Telefone" value='19 9 12345678'/>
                 <label htmlFor="profile-password">Senha:</label>
                 <input id='profile-password' type="password" {...register('profile-password')} placeholder="Senha"/>
 
-                <button type="submit" className='profile-button'>Salvar informações</button>
+                <button type="submit" className='profile-button'>Salvar</button>
             </form>
         </section>
     );

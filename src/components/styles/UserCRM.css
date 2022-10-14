@@ -48,3 +48,10 @@
     margin-top: 50px;
     justify-content: space-around;
 }
+
+@media screen and (max-width: 550px){
+    .usercrm-form {
+        width: 100%;
+        gap: 10px;
+    }
+}

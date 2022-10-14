@@ -9,6 +9,7 @@
     font-weight: 400;
     font-size: 1.875rem;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .crm-wrapper {
@@ -17,7 +18,7 @@
 
 .crm-article {
     border: 1px solid var(--black);
-    border-radius: 5px 5px 0 0;
+    border-radius: 5px;
     background-color: var(--white);
 
     margin-bottom: 30px;
@@ -43,4 +44,10 @@
     font-size: 1.5rem;
     color: var(--dark-blue);
     margin-right: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .crm-wrapper {
+        width: 100%;
+    }
 }

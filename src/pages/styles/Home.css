@@ -3,7 +3,7 @@
     justify-content: space-around;
     border-bottom: 1px solid var(--dark-blue);
     padding: 0 10px 20px 10px;
-    column-gap: 10px;
+    gap: 10px;
 }
 
 .home-nav-button {
@@ -23,4 +23,12 @@
 .home-nav-button.active {
     background-color: var(--second-dark-blue);
     color: var(--grey);
+}
+
+@media screen and (max-width: 550px) {
+    .home-nav {
+        flex-direction: column;
+        width: 90%;
+        margin: 0 auto;
+    }
 }

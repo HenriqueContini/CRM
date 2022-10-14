@@ -53,3 +53,15 @@
     font-size: 2rem;
     margin-right: 20px;
 }
+
+@media screen and (max-width: 768px) {
+    .navbar-container {
+        position: fixed;
+        right: 0;
+        top: 81px;
+    }
+
+    .navbar-logo {
+        display: none;
+    }
+}

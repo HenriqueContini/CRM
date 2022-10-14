@@ -9,6 +9,7 @@
     color: var(--dark-blue);
     font-weight: 400;
     font-size: 2rem;
+    text-align: center;
 }
 
 .profile-name {
@@ -65,4 +66,10 @@
 
 .profile-button:hover {
     background-color: var(--second-dark-blue);
+}
+
+@media screen and (max-width: 768px) {
+    .profile-form {
+        width: 80%;
+    }
 }

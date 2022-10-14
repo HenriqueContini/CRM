@@ -28,7 +28,7 @@
 .login-form label {
     color: var(--black);
     margin-top: 10px;
-    font-size: 1rem;
+    font-size: 1.25rem;
 }
 
 .login-form-input {
@@ -39,7 +39,7 @@
     padding: 10px;
     width: 100%;
 
-    font-size: 1rem;
+    font-size: 1.25rem;
 
     color: var(--black);
     outline-color: var(--dark-blue);
@@ -54,7 +54,7 @@
     width: 100%;
     cursor: pointer;
     transition: 1s;
-    font-size: 1rem;
+    font-size: 1.25rem;
 }
 
 .login-button:hover {

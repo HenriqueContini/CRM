@@ -14,7 +14,7 @@ const Navbar = () => {
     }, [location.pathname.replace('/', '')])
 
     return (
-        <aside className="navbar-container">
+        <aside className="navbar-container ">
             <img src="logo-crm-white.png" alt="Logo CRM" className="navbar-logo"/>
             <nav className="navbar-nav">
                 <Link className={ActiveLink == 'home' ? 'navbar-link active' : 'navbar-link'} to='/home'><AiFillHome />Página inicial</Link>
