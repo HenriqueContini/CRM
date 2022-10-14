@@ -6,16 +6,17 @@ import './styles/Newcrm.css';
 const Newcrm = () => {
     const { register, handleSubmit } = useForm();
     const [Files, setFiles] = useState([]);
-
-    function autoResize(el) {
-        while (el.scrollHeight > el.offsetHeight) {
-            el.rows += 1;
-        }
-    }
+    const [Department, setDepartment] = useState([]);
 
     const handleFiles = (newFile) => {
         setFiles([...Files, newFile]);
     }
+
+    // const handleDepartment = (newDepartment) => {
+    //     setDepartment([...Department, newDepartment]);
+    // }
+
+    const departmentOptions = ['Mercantil', 'Controladoria', 'Fiscal']
 
     return (
         <section className='newcrm-container'>
@@ -75,11 +76,24 @@ const Newcrm = () => {
                         <label htmlFor="arquivos" className='files-label'>Arquivo</label>
                         <input id="arquivos" type="file" className='files-input' {...register('arquivos')} onChange={(e) => handleFiles(e.target.files[0].name)} />
                     </div>
-
                     {
                         Files.length > 0 && <div className='files-list'> {Files.map((file) => <p key={file} className="files-list-item">{file}</p>)}</div>
                     }
+                </fieldset>
 
+                <fieldset className='newcrm-fieldset'>
+                    <legend className='newcrm-legend'>Setores envolvidos</legend>
+
+                    <div className="newcrm-fieldset-department">
+                        <label htmlFor="setores_envolvidos">Escolha um setor:</label>
+                        <select {...register('setores_envolvidos')} className="department-select">
+                            {departmentOptions.map(value => (
+                                <option key={value} value={value}>
+                                    {value}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </fieldset>
                 <input className='newcrm-button' type="submit" />
             </form>

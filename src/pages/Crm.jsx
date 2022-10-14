@@ -1,5 +1,5 @@
 import CrmInfo from '../components/CrmInfo';
-import {AiFillFilePdf, AiFillFileWord} from 'react-icons/ai';
+import {AiFillFilePdf, AiFillFileWord, AiFillCloseCircle, AiFillCheckCircle, AiFillClockCircle} from 'react-icons/ai';
 import './styles/Crm.css';
 
 const Crm = () => {
@@ -26,7 +26,7 @@ const Crm = () => {
                 </article>
                 <article className='crm-article'>
                     <h2 className='crm-article-title'>Informações</h2>
-                    <CrmInfo subtitle='Descrição da demanda:' info='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!'/>
+                    <CrmInfo subtitle='Descrição da demanda:' info='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!'/>
                     <CrmInfo subtitle='Objetivo a ser atendido:' info='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!'/>
                     <CrmInfo subtitle='Justificativa:' info='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!'/>
                     <CrmInfo subtitle='Alternativas:' info='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!'/>
@@ -49,7 +49,23 @@ const Crm = () => {
 
                 <article className="crm-article">
                     <h2 className="crm-article-title">Setores envolvidos</h2>
-                    {/* Criar tabela - Setor | Nome do colaborador | Decisão */}
+                    <div className="crm-aware-list">
+                        <div className="crm-aware-item">
+                            <p className="crm-aware-department">Controladoria</p>
+                            <p className="crm-aware-user">Fulano</p>
+                            <AiFillCheckCircle className='crm-aware-img aware-accepted'/>
+                        </div>
+                        <div className="crm-aware-item">
+                            <p className="crm-aware-department">Fiscal</p>
+                            <p className="crm-aware-user"></p>
+                            <AiFillClockCircle className='crm-aware-img aware-pending'/>
+                        </div>
+                        <div className="crm-aware-item">
+                            <p className="crm-aware-department">Outro setor</p>
+                            <p className="crm-aware-user">Outro fulano</p>
+                            <AiFillCloseCircle className='crm-aware-img aware-rejected'/>
+                        </div>
+                    </div>
                 </article>
             </section>
         </section>

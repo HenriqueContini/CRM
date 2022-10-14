@@ -46,6 +46,72 @@
     margin-right: 10px;
 }
 
+.crm-aware-list {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.crm-aware-item {
+    display: grid;
+    gap: 10px;
+    background-color: var(--grey);
+    grid-template-columns: 1fr 2fr 40px;
+    border: 1px solid var(--black);
+    align-items: center;
+    padding: 10px;
+}
+
+.crm-aware-item:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.crm-aware-item:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.crm-aware-department {
+    color: var(--dark-blue);
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+
+.crm-aware-user {
+    color: var(--black);
+    font-size: 1.125rem;
+}
+
+.crm-aware-img {
+    font-size: 2rem;
+    justify-self: end;
+}
+
+.aware-accepted {
+    color: #43924B;
+}
+
+.aware-pending {
+    color: #BB9B29;
+}
+
+.aware-rejected {
+    color: #924343;
+}
+
+@media screen and (max-width: 550px) {
+    .crm-aware-item {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    .crm-aware-img {
+        justify-self: center;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .crm-wrapper {
         width: 100%;
