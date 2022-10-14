@@ -1,5 +1,7 @@
 import './styles/CardCRM.css';
 
+// Cada card deve receber como props um id, com este id será feito a requisição na API para gerar os dados e será o mesmo id para o useNavegation
+
 const CardCRM = () => {
     return (
         <div className='card-crm'>

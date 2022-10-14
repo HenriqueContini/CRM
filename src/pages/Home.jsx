@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import AwareCRM from '../components/AwareCRM';
 import UserCRM from '../components/UserCRM';
+import SearchCRM from '../components/SearchCRM';
 import './styles/Home.css';
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
 
             {content === 'userCRM' && <UserCRM />}
             {content === 'awareCRM' && <AwareCRM />}
+            {content === 'searchCRM' && <SearchCRM />}
         </section>
     );
 }
