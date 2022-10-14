@@ -38,7 +38,7 @@
     color: var(--grey);
 }
 
-.newcrm-fieldset-wrapper {
+.newcrm-fieldset-wrapper, .newcrm-fieldset-files {
     padding: 0 30px 30px 30px;
 }
 
@@ -76,6 +76,59 @@
 
     font-weight: 400;
     color: var(--black);
+}
+
+.newcrm-fieldset-files {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.files-p {
+    color: var(--black);
+    font-size: 1.125rem;
+}
+
+.files-label {
+    background-color: var(--black);
+    border-radius: 5px;
+    color: var(--white);
+    cursor: pointer;
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 300;
+    padding: 5px 10px;
+}
+
+.files-input {
+    display: none;
+}
+
+.files-list {
+    display: flex;
+    flex-direction: column;
+    margin: 0 30px 30px 30px;
+}
+
+.files-list-item {
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--black);
+    border: 1px solid var(--black);
+    padding: 10px;
+    background-color: var(--grey);
+}
+
+.files-list-item:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.files-list-item:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .newcrm-button {

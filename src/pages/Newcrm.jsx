@@ -1,9 +1,15 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import './styles/Newcrm.css';
 
 const Newcrm = () => {
-    const {register, handleSubmit} = useForm();
+    const { register, handleSubmit } = useForm();
+    const [Files, setFiles] = useState([]);
+
+    const handleFiles = (newFile) => {
+        setFiles([...Files, newFile]);
+    }
 
     return (
         <section className='newcrm-container'>
@@ -15,11 +21,11 @@ const Newcrm = () => {
 
                     <div className="newcrm-fieldset-wrapper">
                         <label htmlFor="nome_crm">Nome da CRM</label>
-                        <input id='nome_crm' type="text" {...register('nome_crm')} placeholder="Nome da CRM"/>
+                        <input id='nome_crm' type="text" {...register('nome_crm')} placeholder="Nome da CRM" />
                         <label htmlFor="tel_crm">Telefone ou Ramal</label>
-                        <input id='tel_crm' type="tel" {...register('tel_crm')} placeholder="Telefone para contato"/>
+                        <input id='tel_crm' type="tel" {...register('tel_crm')} placeholder="Telefone para contato" />
                         <label htmlFor="email_crm">E-mail</label>
-                        <input id='email_crm' type="email" {...register('email_crm')} placeholder="E-mail para contato"/>
+                        <input id='email_crm' type="email" {...register('email_crm')} placeholder="E-mail para contato" />
                     </div>
                 </fieldset>
 
@@ -58,10 +64,16 @@ const Newcrm = () => {
                 <fieldset className='newcrm-fieldset'>
                     <legend className='newcrm-legend'>Arquivos</legend>
 
-                    <div className="newcrm-fieldset-wrapper">
-                        <label htmlFor="arquivos">Arquivos</label>
-                        <input id="arquivos" type="file" {...register('arquivos')}/>
+                    <div className="newcrm-fieldset-files">
+                        <p className='files-p'>Escolha um arquivo:</p>
+                        <label htmlFor="arquivos" className='files-label'>Arquivo</label>
+                        <input id="arquivos" type="file" className='files-input' {...register('arquivos')} onChange={(e) => handleFiles(e.target.files[0].name)} />
                     </div>
+                    
+                    {
+                        Files.length > 0 && <div className='files-list'> {Files.map((file) => <p key={file} className="files-list-item">{file}</p>) }</div>
+                    }
+
                 </fieldset>
                 <input className='newcrm-button' type="submit" />
             </form>

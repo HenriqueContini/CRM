@@ -12,12 +12,6 @@ const UserCRM = () => {
 
             <div className='usercrm-cards'>
                 <CardCRM />
-                <CardCRM />
-                <CardCRM />
-                <CardCRM />
-                <CardCRM />
-                <CardCRM />
-                <CardCRM />
             </div>
         </section>
     )
