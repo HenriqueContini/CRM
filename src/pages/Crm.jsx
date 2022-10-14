@@ -10,6 +10,7 @@ const Crm = () => {
             <section className="crm-wrapper">
                 <article className='crm-article'>
                     <h2 className='crm-article-title'>CRM</h2>
+                    <CrmInfo subtitle='Nome da CRM' info='Melhoria tal'/>
                     <CrmInfo subtitle='Número da CRM' info='8020'/>
                     <CrmInfo subtitle='Versão' info='5'/>
                     <CrmInfo subtitle='Data de criação' info='10 / 10 / 2022'/>
