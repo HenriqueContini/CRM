@@ -8,7 +8,7 @@ const CardCRM = ({crm_name, author, description, date}) => {
             <h2 className='card-title'>{crm_name}</h2>
             <p className='card-author'>{author}</p>
             <article className='card-article'>{description}</article>
-            <p className='card-date'>{`${fDate.getDay()}/${fDate.getMonth()}/${fDate.getFullYear()}`}</p>
+            <p className='card-date'>{`${fDate.getDate()}/${fDate.getMonth()}/${fDate.getFullYear()}`}</p>
         </div>
     )
 }
