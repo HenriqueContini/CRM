@@ -77,6 +77,8 @@
     outline-color: var(--dark-blue);
     resize: vertical;
 
+    height: 150px;
+
     font-weight: 400;
     color: var(--black);
 }

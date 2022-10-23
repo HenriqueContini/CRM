@@ -16,7 +16,7 @@ const SearchCRM = () => {
                 <input type="text" id='nome' {...register('nome')} placeholder="Nome da CRM"/>
                 <label htmlFor="usuario">Usuário:</label>
                 <input type="text" id='usuario' {...register('usuario')} placeholder="Nome do usuário"/>
-                <label htmlFor="data">Número da CRM:</label>
+                <label htmlFor="data">Data da CRM:</label>
                 <input type="date" id='data' {...register('data')} placeholder="Número CRM"/>
 
                 <button type="submit">Buscar</button>
