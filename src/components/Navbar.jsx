@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiFillHome, AiFillFileAdd, } from "react-icons/ai";
 import { IoCloseSharp, IoMenuSharp } from 'react-icons/io5';
 import { IoPersonCircle } from "react-icons/io5";
@@ -10,8 +10,12 @@ const Navbar = () => {
     const [ActiveLink, setActiveLink] = useState('');
     const [ActiveNavbar, setActiveNavbar] = useState(false)
     const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
+        if (sessionStorage.getItem('user') === null) {
+            navigate('/');
+        }
         setActiveLink(location.pathname.replace('/', ''));
     }, [location.pathname.replace('/', '')])
 

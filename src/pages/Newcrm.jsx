@@ -7,6 +7,8 @@ const Newcrm = () => {
     const urlAPI = 'http://localhost:8080/crm/create-crm';
     const { register, handleSubmit, reset } = useForm();
     const [Files, setFiles] = useState([]);
+    let user = JSON.parse(sessionStorage.getItem('user'));
+
     // const [Department, setDepartment] = useState([]);
 
     const handleFiles = (newFile) => {
@@ -18,7 +20,7 @@ const Newcrm = () => {
     // }
 
     function createCRM(data) {
-        data.user = '00001';
+        data.user = user.matricula;
         delete data.arquivos;
 
         fetch(urlAPI, {

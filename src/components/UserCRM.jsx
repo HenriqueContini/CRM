@@ -2,17 +2,23 @@ import CardCRM from './CardCRM';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import { useState, useEffect } from 'react';
 import './styles/UserCRM.css';
+import { useNavigate } from 'react-router-dom';
 
 const UserCRM = () => {
-
-    const urlAPI = 'http://localhost:8080/crm/usercrms/00001';
-
+    let user = JSON.parse(sessionStorage.getItem('user'));
+    const navigate = useNavigate();
     const [CRMs, setCRMs] = useState([]);
-
+    
     useEffect(() => {
-        fetch(urlAPI)
-            .then(r => r.json())
-            .then(json => setCRMs(json))
+        if(user) {
+            let urlAPI = `http://localhost:8080/crm/usercrms/${user.matricula}`;
+            
+            fetch(urlAPI)
+                .then(r => r.json())
+                .then(json => setCRMs(json))
+        } else {
+            navigate('/')
+        }
     }, [])
 
     return (
