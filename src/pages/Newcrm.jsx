@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import './styles/Newcrm.css';
 
 const Newcrm = () => {
+    const urlAPI = 'http://localhost:8080/crm/create-crm';
     const { register, handleSubmit } = useForm();
     const [Files, setFiles] = useState([]);
     // const [Department, setDepartment] = useState([]);
@@ -16,15 +17,30 @@ const Newcrm = () => {
     //     setDepartment([...Department, newDepartment]);
     // }
 
+    function createCRM(data) {
+        data.user = '00001';
+        delete data.arquivos;
+
+        fetch(urlAPI, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    }
+
+    
+
     const departmentOptions = ['Mercantil', 'Controladoria', 'Fiscal']
 
     return (
         <section className='newcrm-container'>
             <h1 className='newcrm-title'>Crie uma nova CRM</h1>
 
-            <form className='newcrm-form' onSubmit={handleSubmit((data) => console.log(data))}>
+            <form className='newcrm-form' onSubmit={handleSubmit((data) => createCRM(data))}>
                 <fieldset className='newcrm-fieldset'>
-                    <legend className='newcrm-legend'>Requerente</legend>
+                    <legend className='newcrm-legend'>CRM</legend>
 
                     <div className="newcrm-fieldset-wrapper">
                         <label htmlFor="nome_crm">CRM</label>
@@ -77,7 +93,7 @@ const Newcrm = () => {
                     }
                 </fieldset>
 
-                <fieldset className='newcrm-fieldset'>
+                {/* <fieldset className='newcrm-fieldset'>
                     <legend className='newcrm-legend'>Setores envolvidos</legend>
 
                     <div className="newcrm-fieldset-department">
@@ -90,7 +106,7 @@ const Newcrm = () => {
                             ))}
                         </select>
                     </div>
-                </fieldset>
+                </fieldset> */}
                 <input className='newcrm-button' type="submit" />
             </form>
         </section>
