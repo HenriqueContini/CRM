@@ -6,7 +6,7 @@ import './styles/Newcrm.css';
 const Newcrm = () => {
     const { register, handleSubmit } = useForm();
     const [Files, setFiles] = useState([]);
-    const [Department, setDepartment] = useState([]);
+    // const [Department, setDepartment] = useState([]);
 
     const handleFiles = (newFile) => {
         setFiles([...Files, newFile]);
@@ -27,12 +27,8 @@ const Newcrm = () => {
                     <legend className='newcrm-legend'>Requerente</legend>
 
                     <div className="newcrm-fieldset-wrapper">
-                        <label htmlFor="nome_crm">Nome da CRM</label>
+                        <label htmlFor="nome_crm">CRM</label>
                         <input id='nome_crm' type="text" {...register('nome_crm')} placeholder="Nome da CRM" />
-                        <label htmlFor="tel_crm">Telefone ou Ramal</label>
-                        <input id='tel_crm' type="tel" {...register('tel_crm')} placeholder="Telefone para contato" />
-                        <label htmlFor="email_crm">E-mail</label>
-                        <input id='email_crm' type="email" {...register('email_crm')} placeholder="E-mail para contato" />
                     </div>
                 </fieldset>
 
