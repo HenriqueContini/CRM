@@ -5,7 +5,7 @@ import './styles/Newcrm.css';
 
 const Newcrm = () => {
     const urlAPI = 'http://localhost:8080/crm/create-crm';
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const [Files, setFiles] = useState([]);
     // const [Department, setDepartment] = useState([]);
 
@@ -30,15 +30,13 @@ const Newcrm = () => {
         })
     }
 
-    
-
     const departmentOptions = ['Mercantil', 'Controladoria', 'Fiscal']
 
     return (
         <section className='newcrm-container'>
             <h1 className='newcrm-title'>Crie uma nova CRM</h1>
 
-            <form className='newcrm-form' onSubmit={handleSubmit((data) => createCRM(data))}>
+            <form className='newcrm-form' onSubmit={handleSubmit((data) => (createCRM(data), reset()))}>
                 <fieldset className='newcrm-fieldset'>
                     <legend className='newcrm-legend'>CRM</legend>
 
