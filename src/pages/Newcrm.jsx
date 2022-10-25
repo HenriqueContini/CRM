@@ -1,29 +1,51 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+// import {IoMdAddCircleOutline, IoMdRemoveCircleOutline} from 'react-icons/io'
 
 import './styles/Newcrm.css';
 
 const Newcrm = () => {
-    const urlAPI = 'http://localhost:8080/crm/create-crm';
+    const createURL = 'http://localhost:8080/crm/create-crm';
+    const departmentURL = 'http://localhost:8080/department/list-departments'
     const { register, handleSubmit, reset } = useForm();
     const [Files, setFiles] = useState([]);
+    const [ListDepartments, setListDepartments] = useState([]);
+    const [Departments, setDepartments] = useState([]);
+
     let user = JSON.parse(sessionStorage.getItem('user'));
 
-    // const [Department, setDepartment] = useState([]);
+    useEffect(() => {
+        fetch(departmentURL)
+            .then(r => r.json())
+            .then(json => setListDepartments(json))
+    }, [])
+
+    // useEffect(() => {
+    //     console.log(Departments)
+    // }, [Departments])
 
     const handleFiles = (newFile) => {
         setFiles([...Files, newFile]);
     }
 
-    // const handleDepartment = (newDepartment) => {
-    //     setDepartment([...Department, newDepartment]);
-    // }
+    const handleDepartments = (newDepartment) => {
+        let indexNewDepartment = Departments.indexOf(newDepartment);
+
+        if (indexNewDepartment === -1) {
+            setDepartments([...Departments, newDepartment]);
+        } else {
+            setDepartments(Departments.filter(i => i !== newDepartment));
+        }
+    }
 
     function createCRM(data) {
         data.user = user.matricula;
+        data.setores = JSON.stringify(Departments);
         delete data.arquivos;
 
-        fetch(urlAPI, {
+        console.log(data)
+
+        fetch(createURL, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -31,8 +53,6 @@ const Newcrm = () => {
             }
         })
     }
-
-    const departmentOptions = ['Mercantil', 'Controladoria', 'Fiscal']
 
     return (
         <section className='newcrm-container'>
@@ -93,20 +113,17 @@ const Newcrm = () => {
                     }
                 </fieldset>
 
-                {/* <fieldset className='newcrm-fieldset'>
+                <fieldset className='newcrm-fieldset'>
                     <legend className='newcrm-legend'>Setores envolvidos</legend>
 
                     <div className="newcrm-fieldset-department">
-                        <label htmlFor="setores_envolvidos">Escolha um setor:</label>
-                        <select {...register('setores_envolvidos')} className="department-select">
-                            {departmentOptions.map(value => (
-                                <option key={value} value={value}>
-                                    {value}
-                                </option>
-                            ))}
-                        </select>
+                        {ListDepartments.map((department) => (
+                            <div className='department-option' key={department.cod_setor} onClick={(() => handleDepartments(department.cod_setor))}>
+                                <p>{department.nome}</p>
+                            </div>
+                        ))}
                     </div>
-                </fieldset> */}
+                </fieldset>
                 <input className='newcrm-button' type="submit" />
             </form>
         </section>

@@ -97,8 +97,7 @@
     font-size: 1.125rem;
 }
 
-.files-label,
-.department-select {
+.files-label {
     background-color: var(--black);
     border-radius: 5px;
     color: var(--white);
@@ -138,12 +137,19 @@
     border-bottom-right-radius: 5px;
 }
 
-.newcrm-fieldset-department label {
-    display: block;
+.newcrm-fieldset-department {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-    font-size: 1.125rem;
-    font-weight: 400;
-    color: var(--black);
+.department-option {
+    border-radius: 5px;
+    padding: 10px;
+    background-color: var(--grey);
+    width: 100%;
+    border: 1px solid var(--black);
+    cursor: pointer;
 }
 
 .newcrm-button {
