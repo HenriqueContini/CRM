@@ -45,6 +45,13 @@
     outline-color: var(--dark-blue);
 }
 
+.login-error {
+    color: #924343;
+    font-weight: 600;
+    margin: 10px 0;
+    font-size: 1.125rem;
+}
+
 .login-button {
     margin-top: 30px;
     background-color: var(--dark-blue);
