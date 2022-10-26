@@ -5,14 +5,16 @@ import { useForm } from 'react-hook-form';
 import './styles/Newcrm.css';
 
 const Newcrm = () => {
+    const user = JSON.parse(sessionStorage.getItem('user'));
+
     const createURL = 'http://localhost:8080/crm/create-crm';
-    const departmentURL = 'http://localhost:8080/department/list-departments'
+    const departmentURL = `http://localhost:8080/department/list-departments/${user.setor}`
+
     const { register, handleSubmit, reset } = useForm();
+    
     const [Files, setFiles] = useState([]);
     const [ListDepartments, setListDepartments] = useState([]);
     const [Departments, setDepartments] = useState([]);
-
-    let user = JSON.parse(sessionStorage.getItem('user'));
 
     useEffect(() => {
         fetch(departmentURL)
