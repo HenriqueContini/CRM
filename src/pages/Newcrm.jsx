@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-// import {IoMdAddCircleOutline, IoMdRemoveCircleOutline} from 'react-icons/io'
+import {BiCheckboxChecked, BiCheckbox} from 'react-icons/bi';
 
 import './styles/Newcrm.css';
 
@@ -21,10 +21,6 @@ const Newcrm = () => {
             .then(r => r.json())
             .then(json => setListDepartments(json))
     }, [])
-
-    // useEffect(() => {
-    //     console.log(Departments)
-    // }, [Departments])
 
     const handleFiles = (newFile) => {
         setFiles([...Files, newFile]);
@@ -120,8 +116,11 @@ const Newcrm = () => {
 
                     <div className="newcrm-fieldset-department">
                         {ListDepartments.map((department) => (
-                            <div className='department-option' key={department.cod_setor} onClick={(() => handleDepartments(department.cod_setor))}>
+                            <div className='department-option selected' key={department.cod_setor} 
+                                onClick={(() => handleDepartments(department.cod_setor))}>
+
                                 <p>{department.nome}</p>
+                                {Departments.includes(department.cod_setor) ? <BiCheckboxChecked /> : <BiCheckbox/>}
                             </div>
                         ))}
                     </div>
