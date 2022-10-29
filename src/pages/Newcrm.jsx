@@ -41,8 +41,6 @@ const Newcrm = () => {
         data.setores = JSON.stringify(Departments);
         delete data.arquivos;
 
-        console.log(data)
-
         fetch(createURL, {
             method: 'POST',
             body: JSON.stringify(data),

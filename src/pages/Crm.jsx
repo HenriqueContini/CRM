@@ -1,8 +1,30 @@
 import CrmInfo from '../components/CrmInfo';
 import {AiFillFilePdf, AiFillFileWord, AiFillCloseCircle, AiFillCheckCircle, AiFillClockCircle} from 'react-icons/ai';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import './styles/Crm.css';
 
 const Crm = () => {
+    const {id} = useParams();
+    const [CRM, setCRM] = useState({});
+    const [Departments, setDepartments] = useState({})
+    
+    async function loadData() {
+        try {
+            let urlAPI = `http://localhost:8080/crm/getcrm/${id}`;
+            let response = await fetch(urlAPI);
+            let json = await response.json();
+            setCRM(json.crm);
+            setDepartments(json.setores);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    useEffect(() => {
+        loadData();
+    }, [])
+
     return (
         <section className="crm-container">
             <h1 className="crm-title">Visualizar CRM</h1>
@@ -10,29 +32,29 @@ const Crm = () => {
             <section className="crm-wrapper">
                 <article className='crm-article'>
                     <h2 className='crm-article-title'>CRM</h2>
-                    <CrmInfo subtitle='Nome da CRM' info='Melhoria tal'/>
-                    <CrmInfo subtitle='Número da CRM' info='8020'/>
-                    <CrmInfo subtitle='Versão' info='5'/>
-                    <CrmInfo subtitle='Data de criação' info='10 / 10 / 2022'/>
-                    <CrmInfo subtitle='Requerente' info='Henrique Contini'/>
-                    <CrmInfo subtitle='Setor' info='Mercantil'/>
+                    <CrmInfo subtitle='Nome da CRM' info={CRM.nome_crm}/>
+                    <CrmInfo subtitle='Número da CRM' info={CRM.numero_crm}/>
+                    <CrmInfo subtitle='Versão' info={CRM.versao}/>
+                    <CrmInfo subtitle='Data de criação' info={`${new Date(CRM.data_criacao).getDate()}/${new Date(CRM.data_criacao).getMonth()}/${new Date(CRM.data_criacao).getFullYear()}`}/>
+                    <CrmInfo subtitle='Requerente' info={CRM.requerente}/>
+                    <CrmInfo subtitle='Setor' info={CRM.setor}/>
                     <CrmInfo subtitle='Telefone ou ramal' info='19 9 99991234'/>
                     <CrmInfo subtitle='E-mail:' info='henrique@gmail.com'/>
                 </article>
                 <article className='crm-article'>
                     <h2 className='crm-article-title'>Sobre</h2>
-                    <CrmInfo subtitle='A necessidade de:' info='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!'/>
-                    <CrmInfo subtitle='Impacto:' info='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!'/>
+                    <CrmInfo subtitle='A necessidade de:' info={CRM.necessidade}/>
+                    <CrmInfo subtitle='Impacto:' info={CRM.impacto}/>
                 </article>
                 <article className='crm-article'>
                     <h2 className='crm-article-title'>Informações</h2>
-                    <CrmInfo subtitle='Descrição da demanda:' info='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!'/>
-                    <CrmInfo subtitle='Objetivo a ser atendido:' info='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!'/>
-                    <CrmInfo subtitle='Justificativa:' info='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!'/>
-                    <CrmInfo subtitle='Alternativas:' info='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!'/>
-                    <CrmInfo subtitle='Sistemas envolvidos na mudança:' info='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!'/>
-                    <CrmInfo subtitle='Comportamento offline:' info='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!'/>
-                    <CrmInfo subtitle='Esta CRM depende de outro desenvolvimento?' info='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quod quibusdam illum, qui iure dolores consectetur rerum blanditiis beatae officia nam, necessitatibus ullam eaque reiciendis corporis ad quas nemo repellat!'/>
+                    <CrmInfo subtitle='Descrição da demanda:' info={CRM.descricao}/>
+                    <CrmInfo subtitle='Objetivo a ser atendido:' info={CRM.objetivo}/>
+                    <CrmInfo subtitle='Justificativa:' info={CRM.justificativa}/>
+                    <CrmInfo subtitle='Alternativas:' info={CRM.alternativa}/>
+                    <CrmInfo subtitle='Sistemas envolvidos na mudança:' info={CRM.sistemas_envolvidos}/>
+                    <CrmInfo subtitle='Comportamento offline:' info={CRM.comportamento_offline}/>
+                    <CrmInfo subtitle='Esta CRM depende de outro desenvolvimento?' info={CRM.dependencia}/>
                 </article>
 
                 <article className="crm-article">
@@ -50,6 +72,7 @@ const Crm = () => {
                 <article className="crm-article">
                     <h2 className="crm-article-title">Setores envolvidos</h2>
                     <div className="crm-aware-list">
+                        {Departments.map(deparment => ('Continuação'))}
                         <div className="crm-aware-item">
                             <p className="crm-aware-department">Controladoria</p>
                             <p className="crm-aware-user">Fulano</p>

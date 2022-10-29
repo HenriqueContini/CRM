@@ -1,8 +1,8 @@
 import CardCRM from './CardCRM';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import { useState, useEffect } from 'react';
-import './styles/UserCRM.css';
 import { useNavigate } from 'react-router-dom';
+import './styles/UserCRM.css';
 
 const UserCRM = () => {
     let user = JSON.parse(sessionStorage.getItem('user'));
@@ -30,7 +30,7 @@ const UserCRM = () => {
 
             <div className='usercrm-cards'>
                 {CRMs != undefined && CRMs.map(crm => (
-                    <CardCRM key={crm.id} crm_name={crm.nome_crm} author={crm.requerente} description={crm.descricao} date={crm.data_criacao}/>
+                    <CardCRM key={crm.id} crm_id={crm.id} crm_name={crm.nome_crm} author={crm.requerente} description={crm.descricao} date={crm.data_criacao}/>
                 ))}
             </div>
         </section>
