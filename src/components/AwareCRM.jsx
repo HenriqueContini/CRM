@@ -30,7 +30,7 @@ const AwareCRM = () => {
 
             <div className='awarecrm-cards'>
                 {CRMs != undefined && CRMs.map(crm => (
-                    <CardCRM key={crm.id} crm_name={crm.nome_crm} author={crm.requerente} description={crm.descricao} date={crm.data_criacao} />
+                    <CardCRM key={crm.id} crm_id={crm.id} crm_name={crm.nome_crm} author={crm.requerente} description={crm.descricao} date={crm.data_criacao} />
                 ))}
             </div>
         </section>

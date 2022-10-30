@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {BiCheckboxChecked, BiCheckbox} from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 
 import './styles/Newcrm.css';
 
@@ -11,6 +12,7 @@ const Newcrm = () => {
     const departmentURL = `http://localhost:8080/department/list-departments/${user.setor}`
 
     const { register, handleSubmit, reset } = useForm();
+    const navigate = useNavigate()
     
     const [Files, setFiles] = useState([]);
     const [ListDepartments, setListDepartments] = useState([]);
@@ -48,6 +50,8 @@ const Newcrm = () => {
                 'Content-Type': 'application/json'
             }
         })
+
+        navigate('/home');
     }
 
     return (

@@ -22,7 +22,7 @@ const Navbar = () => {
     return (
         <>
             <header className="navbar-header">
-                <img className="navbar-header-logo" src="logo-crm-white.png" alt="Logo CRM" />
+                <img className="navbar-header-logo" src="/logo-crm-white.png" alt="Logo CRM" />
                 {!ActiveNavbar ? <IoMenuSharp onClick={() => setActiveNavbar(true)} /> : <IoCloseSharp onClick={() => setActiveNavbar(false)} />}
             </header>
 

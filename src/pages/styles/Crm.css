@@ -100,6 +100,30 @@
     color: #924343;
 }
 
+.crm-edit {
+    margin: 20px;
+}
+
+.crm-edit-button {
+    display: flex;
+    align-items: center;
+
+    padding: 12px;
+    border-radius: 5px;
+
+    color: var(--grey);
+    text-decoration: none;
+    font-size: 1.25rem;
+    
+    background-color: var(--dark-blue);
+
+    transition: .6s;
+}
+
+.crm-edit-button:hover {
+    background-color: var(--second-dark-blue);
+}
+
 @media screen and (max-width: 550px) {
     .crm-aware-item {
         display: grid;

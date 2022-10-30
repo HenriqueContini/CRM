@@ -1,10 +1,11 @@
 import CrmInfo from '../components/CrmInfo';
 import { AiFillFilePdf, AiFillFileWord, AiFillCloseCircle, AiFillCheckCircle, AiFillClockCircle } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './styles/Crm.css';
 
 const Crm = () => {
+    let user = JSON.parse(sessionStorage.getItem('user'));
     const { id } = useParams();
     const [CRM, setCRM] = useState({});
     const [Departments, setDepartments] = useState([])
@@ -36,10 +37,9 @@ const Crm = () => {
                     <CrmInfo subtitle='Número da CRM' info={CRM.numero_crm} />
                     <CrmInfo subtitle='Versão' info={CRM.versao} />
                     <CrmInfo subtitle='Data de criação' info={`${new Date(CRM.data_criacao).getDate()}/${new Date(CRM.data_criacao).getMonth()}/${new Date(CRM.data_criacao).getFullYear()}`} />
-                    <CrmInfo subtitle='Requerente' info={CRM.requerente} />
                     <CrmInfo subtitle='Setor' info={CRM.setor} />
-                    <CrmInfo subtitle='Telefone ou ramal' info='19 9 99991234' />
-                    <CrmInfo subtitle='E-mail:' info='henrique@gmail.com' />
+                    <CrmInfo subtitle='Requerente' info={CRM.requerente} />
+                    <CrmInfo subtitle='E-mail:' info={CRM.email} />
                 </article>
                 <article className='crm-article'>
                     <h2 className='crm-article-title'>Sobre</h2>
@@ -76,14 +76,22 @@ const Crm = () => {
                             <div className="crm-aware-item" key={d.id_aprovacao}>
                                 <p className="crm-aware-department">{d.setor}</p>
                                 <p className="crm-aware-user">{d.responsavel}</p>
-                                {d.decisao === 'Pendente' ? <AiFillClockCircle className='crm-aware-img aware-pending'/> : null}
-                                {d.decisao === 'Aceitado' ? <AiFillCheckCircle className='crm-aware-img aware-accepted'/>: null}
-                                {d.decisao === 'Rejeitado' ? <AiFillCloseCircle className='crm-aware-img aware-rejected'/> : null}
+                                {d.decisao === 'Pendente' ? <AiFillClockCircle className='crm-aware-img aware-pending' /> : null}
+                                {d.decisao === 'Aceitado' ? <AiFillCheckCircle className='crm-aware-img aware-accepted' /> : null}
+                                {d.decisao === 'Rejeitado' ? <AiFillCloseCircle className='crm-aware-img aware-rejected' /> : null}
                             </div>
                         ))}
                     </div>
                 </article>
             </section>
+
+            {CRM.requerente_matricula === user.matricula ?
+                <section className='crm-edit'>
+                    <Link to='/newcrm' className='crm-edit-button'>Editar CRM</Link>
+                </section>
+                
+                : null
+            }
         </section>
     )
 }
