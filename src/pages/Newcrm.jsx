@@ -9,10 +9,10 @@ const Newcrm = () => {
     const user = JSON.parse(sessionStorage.getItem('user'));
 
     const createURL = 'http://localhost:8080/crm/create-crm';
-    const departmentURL = `http://localhost:8080/department/list-departments/${user.setor}`
+    const departmentURL = `http://localhost:8080/department/list-departments/${user.setor}`;
 
     const { register, handleSubmit, reset } = useForm();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     
     const [Files, setFiles] = useState([]);
     const [ListDepartments, setListDepartments] = useState([]);

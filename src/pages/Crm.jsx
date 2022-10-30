@@ -2,13 +2,15 @@ import CrmInfo from '../components/CrmInfo';
 import { AiFillFilePdf, AiFillFileWord, AiFillCloseCircle, AiFillCheckCircle, AiFillClockCircle } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import './styles/Crm.css';
 
 const Crm = () => {
     let user = JSON.parse(sessionStorage.getItem('user'));
+    const { register, handleSubmit, reset } = useForm();
     const { id } = useParams();
     const [CRM, setCRM] = useState({});
-    const [Departments, setDepartments] = useState([])
+    const [Departments, setDepartments] = useState([]);
 
     async function loadData() {
         try {
@@ -89,9 +91,25 @@ const Crm = () => {
                 <section className='crm-edit'>
                     <Link to='/newcrm' className='crm-edit-button'>Editar CRM</Link>
                 </section>
-                
+
                 : null
             }
+
+            <section className='crm-decision'>
+                <h2 className="crm-decision-title">Ciência</h2>
+
+                <div className="crm-decision-buttons">
+                    <button className="crm-decision-accept">Aceitar</button>
+                    <button className="crm-decision-reject">Rejeitar</button>
+                </div>
+
+                <form className='crm-decision-form' onSubmit={handleSubmit((data) => (console.log(data)))}>
+                    <label htmlFor="comentario">Comentário:</label>
+                    <textarea id="comentario" {...register('comentario')} placeholder="Adicione um comentário"></textarea>
+
+                    <button type="submit" className="crm-decision-submit">Enviar decisão</button>
+                </form>
+            </section>
         </section>
     )
 }
