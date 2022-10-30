@@ -10,6 +10,7 @@
     border-radius: 5px;
     cursor: pointer;
     transition: 1s;
+    justify-content: space-between;
 }
 
 .card-crm:hover {
