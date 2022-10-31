@@ -1,5 +1,6 @@
 import CrmInfo from '../components/CrmInfo';
 import { AiFillFilePdf, AiFillFileWord, AiFillCloseCircle, AiFillCheckCircle, AiFillClockCircle } from 'react-icons/ai';
+import { BiCheckbox, BiCheckboxChecked } from 'react-icons/bi';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -11,6 +12,7 @@ const Crm = () => {
     const { id } = useParams();
     const [CRM, setCRM] = useState({});
     const [Departments, setDepartments] = useState([]);
+    const [CRMDecision, setCRMDecision] = useState('');
 
     async function loadData() {
         try {
@@ -24,9 +26,34 @@ const Crm = () => {
         }
     }
 
+    async function setDecision(data) {
+        data.aprovado = CRMDecision;
+        data.user = user.matricula;
+
+        try {
+            let urlDecision = `http://localhost:8080/approval/putdecision/${id}`;
+            let response = await fetch(urlDecision, {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            let json = await response.json();
+
+            loadData();
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     useEffect(() => {
-        loadData();
-    }, [])
+        if (user) {
+            loadData();
+        } else {
+            navigate('/')
+        }
+    }, []);
 
     return (
         <section className="crm-container">
@@ -79,7 +106,7 @@ const Crm = () => {
                                 <p className="crm-aware-department">{d.setor}</p>
                                 <p className="crm-aware-user">{d.responsavel}</p>
                                 {d.decisao === 'Pendente' ? <AiFillClockCircle className='crm-aware-img aware-pending' /> : null}
-                                {d.decisao === 'Aceitado' ? <AiFillCheckCircle className='crm-aware-img aware-accepted' /> : null}
+                                {d.decisao === 'Aprovado' ? <AiFillCheckCircle className='crm-aware-img aware-accepted' /> : null}
                                 {d.decisao === 'Rejeitado' ? <AiFillCloseCircle className='crm-aware-img aware-rejected' /> : null}
                             </div>
                         ))}
@@ -95,21 +122,34 @@ const Crm = () => {
                 : null
             }
 
-            <section className='crm-decision'>
-                <h2 className="crm-decision-title">Ciência</h2>
+            {/* let foo = teste.find(d => d.setor === "TI" && d.decisao === 'Aprovado') */}
 
-                <div className="crm-decision-buttons">
-                    <button className="crm-decision-accept">Aceitar</button>
-                    <button className="crm-decision-reject">Rejeitar</button>
-                </div>
+            {(Departments.find(d => d.decisao === 'Pendente' && d.cod_setor === user.setor)) !== undefined ?
+                <section className='crm-decision'>
+                    <h2 className="crm-decision-title">Ciência</h2>
 
-                <form className='crm-decision-form' onSubmit={handleSubmit((data) => (console.log(data)))}>
-                    <label htmlFor="comentario">Comentário:</label>
-                    <textarea id="comentario" {...register('comentario')} placeholder="Adicione um comentário"></textarea>
+                    <div className="crm-decision-buttons">
+                        <div className='crm-decision-option accept' onClick={() => setCRMDecision(true)}>
+                            {CRMDecision === true ? <BiCheckboxChecked /> : <BiCheckbox />}
+                            <p>Aceitar</p>
+                        </div>
+                        <div className='crm-decision-option reject' onClick={() => setCRMDecision(false)}>
+                            {CRMDecision === false ? <BiCheckboxChecked /> : <BiCheckbox />}
+                            <p>Rejeitar</p>
+                        </div>
+                    </div>
 
-                    <button type="submit" className="crm-decision-submit">Enviar decisão</button>
-                </form>
-            </section>
+                    <form className='crm-decision-form' onSubmit={handleSubmit((data) => (setDecision(data), reset()))}>
+                        <label htmlFor="comentario">Comentário:</label>
+                        <textarea id="comentario" {...register('comentario')} placeholder="Adicione um comentário"></textarea>
+
+                        <button type="submit" className="crm-decision-submit">Enviar decisão</button>
+                    </form>
+                </section>
+
+                : null
+            }
+
         </section>
     )
 }
