@@ -72,18 +72,18 @@ const Crm = () => {
                 </article>
                 <article className='crm-article'>
                     <h2 className='crm-article-title'>Sobre</h2>
-                    <CrmInfo subtitle='A necessidade de:' info={CRM.necessidade} />
-                    <CrmInfo subtitle='Impacto:' info={CRM.impacto} />
+                    {CRM.necessidade ? <CrmInfo subtitle='A necessidade de:' info={CRM.necessidade} /> : null}
+                    {CRM.impacto ? <CrmInfo subtitle='Impacto:' info={CRM.impacto} /> : null}
                 </article>
                 <article className='crm-article'>
                     <h2 className='crm-article-title'>Informações</h2>
-                    <CrmInfo subtitle='Descrição da demanda:' info={CRM.descricao} />
-                    <CrmInfo subtitle='Objetivo a ser atendido:' info={CRM.objetivo} />
-                    <CrmInfo subtitle='Justificativa:' info={CRM.justificativa} />
-                    <CrmInfo subtitle='Alternativas:' info={CRM.alternativa} />
-                    <CrmInfo subtitle='Sistemas envolvidos na mudança:' info={CRM.sistemas_envolvidos} />
-                    <CrmInfo subtitle='Comportamento offline:' info={CRM.comportamento_offline} />
-                    <CrmInfo subtitle='Esta CRM depende de outro desenvolvimento?' info={CRM.dependencia} />
+                    {CRM.descricao ? <CrmInfo subtitle='Descrição da demanda:' info={CRM.descricao} /> : null}
+                    {CRM.objetivo ? <CrmInfo subtitle='Objetivo a ser atendido:' info={CRM.objetivo} />: null}
+                    {CRM.justificativa ? <CrmInfo subtitle='Justificativa:' info={CRM.justificativa} />: null}
+                    {CRM.alternativa ? <CrmInfo subtitle='Alternativas:' info={CRM.alternativa} />: null}
+                    {CRM.sistemas_envolvidos ? <CrmInfo subtitle='Sistemas envolvidos na mudança:' info={CRM.sistemas_envolvidos} />: null}
+                    {CRM.comportamento_offline ? <CrmInfo subtitle='Comportamento offline:' info={CRM.comportamento_offline} />: null}
+                    {CRM.dependencia ? <CrmInfo subtitle='Esta CRM depende de outro desenvolvimento?' info={CRM.dependencia} />: null}
                 </article>
 
                 <article className="crm-article">

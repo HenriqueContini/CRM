@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {BiCheckboxChecked, BiCheckbox} from 'react-icons/bi';
+import { BiCheckboxChecked, BiCheckbox } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 
 import './styles/Newcrm.css';
@@ -13,7 +13,7 @@ const Newcrm = () => {
 
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
-    
+
     const [Files, setFiles] = useState([]);
     const [ListDepartments, setListDepartments] = useState([]);
     const [Departments, setDepartments] = useState([]);
@@ -93,8 +93,16 @@ const Newcrm = () => {
                         <textarea id="alternativa" {...register('alternativa')} placeholder="Descrever, caso existam, alternativas à modificação proposta"></textarea>
                         <label htmlFor="sistemas">Sistemas envolvidos na mudança</label>
                         <textarea id="sistemas" {...register('sistemas')} placeholder="Quais sistemas estão envolvidos na mudança?"></textarea>
-                        <label htmlFor="offline">Comportanmento offline (Somente para o mercantil)</label>
-                        <textarea id="offline" {...register('offline')} placeholder="Descreva o comportamento dessa mudança quando a Loja estiver offline"></textarea>
+
+                        {user.setor === 8 ?
+                            <>
+                                <label htmlFor="offline">Comportamento offline</label>
+                                <textarea id="offline" {...register('offline')} placeholder="Descreva o comportamento dessa mudança quando a Loja estiver offline"></textarea>
+                            </>
+
+                            : null
+                        }
+
                         <label htmlFor="dependencia">Esta CRM depende de outro desenvolvimento?</label>
                         <textarea id="dependencia" {...register('dependencia')} placeholder="Informar SIM ou NÃO. Caso dependa, informar o nome do projeto necessário"></textarea>
                     </div>
@@ -118,11 +126,11 @@ const Newcrm = () => {
 
                     <div className="newcrm-fieldset-department">
                         {ListDepartments.map((department) => (
-                            <div className='department-option selected' key={department.cod_setor} 
+                            <div className='department-option selected' key={department.cod_setor}
                                 onClick={(() => handleDepartments(department.cod_setor))}>
 
                                 <p>{department.nome}</p>
-                                {Departments.includes(department.cod_setor) ? <BiCheckboxChecked /> : <BiCheckbox/>}
+                                {Departments.includes(department.cod_setor) ? <BiCheckboxChecked /> : <BiCheckbox />}
                             </div>
                         ))}
                     </div>
