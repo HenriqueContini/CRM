@@ -8,9 +8,6 @@ import './styles/Editcrm.css';
 const Editcrm = () => {
     const user = JSON.parse(sessionStorage.getItem('user'));
 
-    const editURL = 'http://localhost:8080/crm/create-crm';
-    const departmentURL = `http://localhost:8080/department/list-departments/${user.setor}`;
-
     const [Files, setFiles] = useState([]);
     const [ListDepartments, setListDepartments] = useState([]);
     const [Departments, setDepartments] = useState([]);
@@ -33,6 +30,7 @@ const Editcrm = () => {
 
     useEffect(() => {
         loadData();
+        const departmentURL = `http://localhost:8080/department/list-departments/${user.setor}`;
         fetch(departmentURL)
             .then(r => r.json())
             .then(json => setListDepartments(json))
@@ -53,32 +51,41 @@ const Editcrm = () => {
     }
 
     function editCRM(data) {
-        data.user = user.matricula;
-        data.setores = JSON.stringify(Departments);
+        const editURL = `http://localhost:8080/crm/editcrm/${id}`;
+        CRM.setores = JSON.stringify(Departments);
+
         delete data.arquivos;
 
         fetch(editURL, {
             method: 'POST',
-            body: JSON.stringify(data),
+            body: JSON.stringify(CRM),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
 
-        navigate('/home');
+        navigate('/home')
+    }
+
+    const updateData = e => {
+        const fieldName = e.target.name
+        setCRM(existingValues => ({
+            ...existingValues,
+            [fieldName]: e.target.value,
+        }))
     }
 
     return (
         <section className='editcrm-container'>
             <h1 className='editcrm-title'>Crie uma nova CRM</h1>
 
-            <form className='editcrm-form' onSubmit={handleSubmit((data) => (createCRM(data), reset()))}>
+            <form className='editcrm-form' onSubmit={handleSubmit((d) => (editCRM(d), reset()))}>
                 <fieldset className='editcrm-fieldset'>
                     <legend className='editcrm-legend'>CRM</legend>
 
                     <div className="editcrm-fieldset-wrapper">
                         <label htmlFor="nome_crm">CRM</label>
-                        <input id='nome_crm' type="text" {...register('nome_crm')} placeholder="Nome da CRM" defaultValue={CRM.nome_crm}/>
+                        <input id='nome_crm' type="text" {...register('nome_crm')} placeholder="Nome da CRM" defaultValue={CRM.nome_crm} onChange={updateData} />
                     </div>
                 </fieldset>
 
@@ -87,9 +94,9 @@ const Editcrm = () => {
 
                     <div className="editcrm-fieldset-wrapper">
                         <label htmlFor="necessidade">A necessidade de</label>
-                        <textarea id="necessidade" {...register('necessidade')} placeholder="Descreva a necessidade" defaultValue={CRM.necessidade}></textarea>
+                        <textarea id="necessidade" {...register('necessidade')} placeholder="Descreva a necessidade" defaultValue={CRM.necessidade} onChange={updateData}></textarea>
                         <label htmlFor="impacto">Cujo impacto é?</label>
-                        <textarea id="impacto" {...register('impacto')} placeholder="Qual é o impacto da demanda?" defaultValue={CRM.impacto}></textarea>
+                        <textarea id="impacto" {...register('impacto')} placeholder="Qual é o impacto da demanda?" defaultValue={CRM.impacto} onChange={updateData}></textarea>
                     </div>
                 </fieldset>
 
@@ -98,27 +105,27 @@ const Editcrm = () => {
 
                     <div className="editcrm-fieldset-wrapper">
                         <label htmlFor="descricao">Descrição da demanda</label>
-                        <textarea id="descricao" {...register('descricao')} placeholder="Descreva em detalhes a demanda a ser atendida" defaultValue={CRM.descricao}></textarea>
+                        <textarea id="descricao" {...register('descricao')} placeholder="Descreva em detalhes a demanda a ser atendida" defaultValue={CRM.descricao} onChange={updateData}></textarea>
                         <label htmlFor="objetivo">Objetivo a ser atendido</label>
-                        <textarea id="objetivo" {...register('objetivo')} placeholder="Documentar os objetivos de forma SMART" defaultValue={CRM.objetivo}></textarea>
+                        <textarea id="objetivo" {...register('objetivo')} placeholder="Documentar os objetivos de forma SMART" defaultValue={CRM.objetivo} onChange={updateData}></textarea>
                         <label htmlFor="justificativa">Justificativa</label>
-                        <textarea id="justificativa" {...register('justificativa')} placeholder="Justificar o motivo pelo qual a mudança proposta precisa ser implementada" defaultValue={CRM.justificativa}></textarea>
+                        <textarea id="justificativa" {...register('justificativa')} placeholder="Justificar o motivo pelo qual a mudança proposta precisa ser implementada" defaultValue={CRM.justificativa} onChange={updateData}></textarea>
                         <label htmlFor="alternativa">Alternativas</label>
-                        <textarea id="alternativa" {...register('alternativa')} placeholder="Descrever, caso existam, alternativas à modificação proposta" defaultValue={CRM.alternativa}></textarea>
+                        <textarea id="alternativa" {...register('alternativa')} placeholder="Descrever, caso existam, alternativas à modificação proposta" defaultValue={CRM.alternativa} onChange={updateData}></textarea>
                         <label htmlFor="sistemas">Sistemas envolvidos na mudança</label>
-                        <textarea id="sistemas" {...register('sistemas')} placeholder="Quais sistemas estão envolvidos na mudança?" defaultValue={CRM.sistemas_envolvidos}></textarea>
+                        <textarea id="sistemas" {...register('sistemas')} placeholder="Quais sistemas estão envolvidos na mudança?" defaultValue={CRM.sistemas_envolvidos} onChange={updateData}></textarea>
 
                         {user.setor === 8 ?
                             <>
                                 <label htmlFor="offline">Comportamento offline</label>
-                                <textarea id="offline" {...register('offline')} placeholder="Descreva o comportamento dessa mudança quando a Loja estiver offline" defaultValue={CRM.comportamento_offline}></textarea>
+                                <textarea id="offline" {...register('offline')} placeholder="Descreva o comportamento dessa mudança quando a Loja estiver offline" defaultValue={CRM.comportamento_offline} onChange={updateData}></textarea>
                             </>
 
                             : null
                         }
 
                         <label htmlFor="dependencia">Esta CRM depende de outro desenvolvimento?</label>
-                        <textarea id="dependencia" {...register('dependencia')} placeholder="Informar SIM ou NÃO. Caso dependa, informar o nome do projeto necessário" defaultValue={CRM.dependencia}></textarea>
+                        <textarea id="dependencia" {...register('dependencia')} placeholder="Informar SIM ou NÃO. Caso dependa, informar o nome do projeto necessário" defaultValue={CRM.dependencia} onChange={updateData}></textarea>
                     </div>
                 </fieldset>
 

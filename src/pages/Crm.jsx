@@ -116,7 +116,7 @@ const Crm = () => {
 
             {CRM.requerente_matricula === user.matricula ?
                 <section className='crm-edit'>
-                    <Link to='/newcrm' className='crm-edit-button'>Editar CRM</Link>
+                    <Link to={`/editcrm/${id}`} className='crm-edit-button'>Editar CRM</Link>
                 </section>
 
                 : null
