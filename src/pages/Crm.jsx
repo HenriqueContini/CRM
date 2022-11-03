@@ -58,6 +58,27 @@ const Crm = () => {
         }
     }
 
+    async function setITDecision(data) {
+        data.aprovado = CRMDecision;
+        data.user = user.matricula;
+
+        console.log(data)
+
+        try {
+            let urlDecision = `http://localhost:8080/approval/putitdecision/${id}`;
+            await fetch(urlDecision, {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            loadData();
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     return (
         <section className="crm-container">
@@ -128,7 +149,7 @@ const Crm = () => {
 
             {AllowIT === true && CRM.requerente_matricula !== user.matricula && user.setor === 1 ?
                 <section className='crm-decision'>
-                    <form className='crm-decision-form' onSubmit={handleSubmit((data) => (console.log(data), reset()))}>
+                    <form className='crm-decision-form' onSubmit={handleSubmit((data) => (setITDecision(data), reset()))}>
                         <h2 className="crm-decision-title">Dados TI</h2>
 
                         <p className='complexity-title'>Complexidade</p>
