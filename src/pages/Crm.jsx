@@ -2,18 +2,21 @@ import CrmInfo from '../components/CrmInfo';
 import { AiFillFilePdf, AiFillFileWord, AiFillCloseCircle, AiFillCheckCircle, AiFillClockCircle } from 'react-icons/ai';
 import { BiCheckbox, BiCheckboxChecked } from 'react-icons/bi';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import './styles/Crm.css';
 
 const Crm = () => {
     let user = JSON.parse(sessionStorage.getItem('user'));
+
     const { register, handleSubmit, reset } = useForm();
     const { id } = useParams();
     const [CRM, setCRM] = useState({});
     const [Departments, setDepartments] = useState([]);
     const [CRMDecision, setCRMDecision] = useState('');
-
+    const [AllowIT, setAllowtIT] = useState(null);
+    const navigate = useNavigate();
+    
     async function loadData() {
         try {
             let urlAPI = `http://localhost:8080/crm/getcrm/${id}`;
@@ -21,27 +24,7 @@ const Crm = () => {
             let json = await response.json();
             setCRM(json.crm);
             setDepartments(json.setores);
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    async function setDecision(data) {
-        data.aprovado = CRMDecision;
-        data.user = user.matricula;
-
-        try {
-            let urlDecision = `http://localhost:8080/approval/putdecision/${id}`;
-            let response = await fetch(urlDecision, {
-                method: 'PUT',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            let json = await response.json();
-
-            loadData();
+            setAllowtIT(json.allowIT);
         } catch (e) {
             console.log(e);
         }
@@ -51,9 +34,30 @@ const Crm = () => {
         if (user) {
             loadData();
         } else {
-            navigate('/')
+            navigate('/');
         }
     }, []);
+
+    async function setDecision(data) {
+        data.aprovado = CRMDecision;
+        data.user = user.matricula;
+
+        try {
+            let urlDecision = `http://localhost:8080/approval/putdecision/${id}`;
+            await fetch(urlDecision, {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            loadData();
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
 
     return (
         <section className="crm-container">
@@ -78,12 +82,12 @@ const Crm = () => {
                 <article className='crm-article'>
                     <h2 className='crm-article-title'>Informações</h2>
                     {CRM.descricao ? <CrmInfo subtitle='Descrição da demanda:' info={CRM.descricao} /> : null}
-                    {CRM.objetivo ? <CrmInfo subtitle='Objetivo a ser atendido:' info={CRM.objetivo} />: null}
-                    {CRM.justificativa ? <CrmInfo subtitle='Justificativa:' info={CRM.justificativa} />: null}
-                    {CRM.alternativa ? <CrmInfo subtitle='Alternativas:' info={CRM.alternativa} />: null}
-                    {CRM.sistemas_envolvidos ? <CrmInfo subtitle='Sistemas envolvidos na mudança:' info={CRM.sistemas_envolvidos} />: null}
-                    {CRM.comportamento_offline ? <CrmInfo subtitle='Comportamento offline:' info={CRM.comportamento_offline} />: null}
-                    {CRM.dependencia ? <CrmInfo subtitle='Esta CRM depende de outro desenvolvimento?' info={CRM.dependencia} />: null}
+                    {CRM.objetivo ? <CrmInfo subtitle='Objetivo a ser atendido:' info={CRM.objetivo} /> : null}
+                    {CRM.justificativa ? <CrmInfo subtitle='Justificativa:' info={CRM.justificativa} /> : null}
+                    {CRM.alternativa ? <CrmInfo subtitle='Alternativas:' info={CRM.alternativa} /> : null}
+                    {CRM.sistemas_envolvidos ? <CrmInfo subtitle='Sistemas envolvidos na mudança:' info={CRM.sistemas_envolvidos} /> : null}
+                    {CRM.comportamento_offline ? <CrmInfo subtitle='Comportamento offline:' info={CRM.comportamento_offline} /> : null}
+                    {CRM.dependencia ? <CrmInfo subtitle='Esta CRM depende de outro desenvolvimento?' info={CRM.dependencia} /> : null}
                 </article>
 
                 <article className="crm-article">
@@ -114,7 +118,7 @@ const Crm = () => {
                 </article>
             </section>
 
-            {CRM.requerente_matricula === user.matricula ?
+            {CRM.requerente_matricula === user.matricula && CRM.status_crm !== 'Aprovado' ?
                 <section className='crm-edit'>
                     <Link to={`/editcrm/${id}`} className='crm-edit-button'>Editar CRM</Link>
                 </section>
@@ -122,9 +126,58 @@ const Crm = () => {
                 : null
             }
 
-            {/* let foo = teste.find(d => d.setor === "TI" && d.decisao === 'Aprovado') */}
+            {AllowIT === true && CRM.requerente_matricula !== user.matricula && user.setor === 1 ?
+                <section className='crm-decision'>
+                    <form className='crm-decision-form' onSubmit={handleSubmit((data) => (console.log(data), reset()))}>
+                        <h2 className="crm-decision-title">Dados TI</h2>
 
-            {(Departments.find(d => d.decisao === 'Pendente' && d.cod_setor === user.setor)) !== undefined ?
+                        <p className='complexity-title'>Complexidade</p>
+                        <div className='crm-decision-complexity'>
+                            <div className='crm-decision-radio-wrapper'>
+                                <input type="radio" id="radio-verylow" value='Muito baixa' {...register('complexidade')} />
+                                <label htmlFor="radio-verylow">Muito baixa</label>
+                            </div>
+                            <div className='crm-decision-radio-wrapper'>
+                                <input type="radio" id="radio-low" value='Baixa' {...register('complexidade')} />
+                                <label htmlFor="radio-low">Baixa</label>
+                            </div>
+                            <div className='crm-decision-radio-wrapper'>
+                                <input type="radio" id="radio-medium" value='Média' {...register('complexidade')} />
+                                <label htmlFor="radio-medium">Média</label>
+                            </div>
+                            <div className='crm-decision-radio-wrapper'>
+                                <input type="radio" id="radio-high" value='Alta' {...register('complexidade')} />
+                                <label htmlFor="radio-high">Alta</label>
+                            </div>
+                        </div>
+
+                        <label htmlFor="impacto">Impacto:</label>
+                        <textarea id="impacto" {...register('impacto')} placeholder="Informe o impacto da mudança"></textarea>
+
+                        <h2 className="crm-decision-title">Aprovação</h2>
+
+                        <div className="crm-decision-buttons">
+                            <div className='crm-decision-option accept' onClick={() => setCRMDecision(true)}>
+                                {CRMDecision === true ? <BiCheckboxChecked /> : <BiCheckbox />}
+                                <p>Aceitar</p>
+                            </div>
+                            <div className='crm-decision-option reject' onClick={() => setCRMDecision(false)}>
+                                {CRMDecision === false ? <BiCheckboxChecked /> : <BiCheckbox />}
+                                <p>Rejeitar</p>
+                            </div>
+                        </div>
+
+                        <label htmlFor="comentario">Comentário:</label>
+                        <textarea id="comentario" {...register('comentario')} placeholder="Adicione um comentário"></textarea>
+
+                        <button type="submit" className="crm-decision-submit">Enviar decisão</button>
+                    </form>
+                </section>
+
+                : null
+            }
+
+            {AllowIT === false && (Departments.find(d => d.decisao === 'Pendente' && d.cod_setor === user.setor)) !== undefined ?
                 <section className='crm-decision'>
                     <h2 className="crm-decision-title">Ciência</h2>
 

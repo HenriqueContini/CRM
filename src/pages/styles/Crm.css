@@ -137,9 +137,29 @@
     border: 1px solid var(--black);
 }
 
+.crm-decision-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 .crm-decision-title {
     text-align: center;
     color: var(--black);
+    margin-bottom: 15px;
+}
+
+.crm-decision-complexity {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.crm-decision-radio-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
 
 .crm-decision-buttons {
@@ -179,19 +199,13 @@
     font-size: 2rem;
 }
 
-.crm-decision-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.crm-decision-form label {
+.crm-decision-form > label, .complexity-title {
     font-size: 1.25rem;
     color: var(--black);
     text-align: center;
 }
 
-.crm-decision-form textarea {
+.crm-decision-form > textarea {
     background-color: var(--grey);
     border-radius: 5px;
     border: 1px solid var(--black);
@@ -200,6 +214,7 @@
     width: 100%;
     outline-color: var(--dark-blue);
     resize: vertical;
+    margin-bottom: 20px;
 
     height: 150px;
 
@@ -236,6 +251,10 @@
 
     .crm-aware-img {
         justify-self: center;
+    }
+
+    .crm-decision-complexity {
+        flex-direction: column;
     }
 
     .crm-decision-buttons {
