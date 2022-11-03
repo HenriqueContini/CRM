@@ -16,12 +16,28 @@
     width: 80%;
 }
 
+.crm-article-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.crm-article-flex > div {
+    flex: 1;
+}
+
 .crm-article {
     border: 1px solid var(--black);
     border-radius: 5px;
     background-color: var(--white);
 
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.crm-article > div {
+    border-top: 1px solid var(--black);
 }
 
 .crm-article-title {

@@ -16,7 +16,7 @@ const Crm = () => {
     const [CRMDecision, setCRMDecision] = useState('');
     const [AllowIT, setAllowtIT] = useState(null);
     const navigate = useNavigate();
-    
+
     async function loadData() {
         try {
             let urlAPI = `http://localhost:8080/crm/getcrm/${id}`;
@@ -88,18 +88,26 @@ const Crm = () => {
                 <article className='crm-article'>
                     <h2 className='crm-article-title'>CRM</h2>
                     <CrmInfo subtitle='Nome da CRM' info={CRM.nome_crm} />
-                    <CrmInfo subtitle='Número da CRM' info={CRM.numero_crm} />
-                    <CrmInfo subtitle='Versão' info={CRM.versao} />
+                    <div className='crm-article-flex'>
+                        <CrmInfo subtitle='Número da CRM' info={CRM.numero_crm} />
+                        <CrmInfo subtitle='Versão' info={CRM.versao} />
+                    </div>
                     <CrmInfo subtitle='Data de criação' info={`${new Date(CRM.data_criacao).getDate()}/${new Date(CRM.data_criacao).getMonth()}/${new Date(CRM.data_criacao).getFullYear()}`} />
                     <CrmInfo subtitle='Setor' info={CRM.setor} />
                     <CrmInfo subtitle='Requerente' info={CRM.requerente} />
                     <CrmInfo subtitle='E-mail:' info={CRM.email} />
                 </article>
-                <article className='crm-article'>
-                    <h2 className='crm-article-title'>Sobre</h2>
-                    {CRM.necessidade ? <CrmInfo subtitle='A necessidade de:' info={CRM.necessidade} /> : null}
-                    {CRM.impacto ? <CrmInfo subtitle='Impacto:' info={CRM.impacto} /> : null}
-                </article>
+
+                {CRM.necessidade || CRM.impacto ?
+                    <article className='crm-article'>
+                        <h2 className='crm-article-title'>Sobre</h2>
+                        {CRM.necessidade ? <CrmInfo subtitle='A necessidade de:' info={CRM.necessidade} /> : null}
+                        {CRM.impacto ? <CrmInfo subtitle='Impacto:' info={CRM.impacto} /> : null}
+                    </article>
+
+                    : null
+                }
+
                 <article className='crm-article'>
                     <h2 className='crm-article-title'>Informações</h2>
                     {CRM.descricao ? <CrmInfo subtitle='Descrição da demanda:' info={CRM.descricao} /> : null}
@@ -110,6 +118,17 @@ const Crm = () => {
                     {CRM.comportamento_offline ? <CrmInfo subtitle='Comportamento offline:' info={CRM.comportamento_offline} /> : null}
                     {CRM.dependencia ? <CrmInfo subtitle='Esta CRM depende de outro desenvolvimento?' info={CRM.dependencia} /> : null}
                 </article>
+
+
+                {CRM.complexidade || CRM.impacto_mudanca ?
+                    <article className='crm-article'>
+                        <h2 className='crm-article-title'>TI</h2>
+                        {CRM.complexidade ? <CrmInfo subtitle='Complexidade da CRM:' info={CRM.complexidade} /> : null}
+                        {CRM.impacto_mudanca ? <CrmInfo subtitle='Impacto da mudança' info={CRM.impacto_mudanca} /> : null}
+                    </article>
+
+                    : null
+                }
 
                 <article className="crm-article">
                     <h2 className="crm-article-title">Arquivos</h2>
