@@ -7,25 +7,23 @@ import './styles/Newcrm.css';
 
 const Newcrm = () => {
     const user = JSON.parse(sessionStorage.getItem('user'));
-
-    const createURL = 'http://localhost:8080/crm/create-crm';
-    const departmentURL = `http://localhost:8080/department/list-departments/${user.setor}`;
-
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
-
+    
     const [Files, setFiles] = useState([]);
     const [ListDepartments, setListDepartments] = useState([]);
     const [Departments, setDepartments] = useState([]);
-
+    
     useEffect(() => {
+        const departmentURL = `http://localhost:8080/department/list-departments/${user.setor}`;
         fetch(departmentURL)
             .then(r => r.json())
             .then(json => setListDepartments(json))
     }, [])
 
     const handleFiles = (newFile) => {
-        setFiles([...Files, newFile]);
+        setFiles([...Files, newFile[0]]);
+        console.log(Files)
     }
 
     const handleDepartments = (newDepartment) => {
@@ -39,16 +37,26 @@ const Newcrm = () => {
     }
 
     function createCRM(data) {
-        data.user = user.matricula;
-        data.setores = JSON.stringify(Departments);
+        const createURL = 'http://localhost:8080/crm/create-crm';
+        const formData = new FormData();
+        
+        formData.append('user', user.matricula);
+
+        Files.forEach((file) => {
+            formData.append("files", file)
+        })
+
         delete data.arquivos;
+        
+        for (let key in data) {
+            formData.append(key, data[key]);
+        }
+
+        formData.append("setores", JSON.stringify(Departments));
 
         fetch(createURL, {
             method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            body: formData,
         })
 
         navigate('/home');
@@ -58,7 +66,7 @@ const Newcrm = () => {
         <section className='newcrm-container'>
             <h1 className='newcrm-title'>Crie uma nova CRM</h1>
 
-            <form className='newcrm-form' onSubmit={handleSubmit((data) => (createCRM(data), reset()))}>
+            <form className='newcrm-form' onSubmit={handleSubmit((data) => (createCRM(data), reset()))} encType="multipart/form-data">
                 <fieldset className='newcrm-fieldset'>
                     <legend className='newcrm-legend'>CRM</legend>
 
@@ -114,10 +122,10 @@ const Newcrm = () => {
                     <div className="newcrm-fieldset-files">
                         <p className='files-p'>Escolha um arquivo:</p>
                         <label htmlFor="arquivos" className='files-label'>Arquivo</label>
-                        <input id="arquivos" type="file" className='files-input' {...register('arquivos')} onChange={(e) => handleFiles(e.target.files[0].name)} />
+                        <input id="arquivos" type="file" className='files-input' {...register('file')} onChange={(e) => handleFiles(e.target.files)} />
                     </div>
                     {
-                        Files.length > 0 ? <div className='files-list'> {Files.map((file) => <p key={file} className="files-list-item">{file}</p>)}</div>
+                        Files.length > 0 ? <div className='files-list'> {Files.map((file, i) => <p key={i} className="files-list-item">{file.name}</p>)}</div>
                         : null
                     }
                 </fieldset>
