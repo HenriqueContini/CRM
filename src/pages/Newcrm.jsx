@@ -117,7 +117,8 @@ const Newcrm = () => {
                         <input id="arquivos" type="file" className='files-input' {...register('arquivos')} onChange={(e) => handleFiles(e.target.files[0].name)} />
                     </div>
                     {
-                        Files.length > 0 && <div className='files-list'> {Files.map((file) => <p key={file} className="files-list-item">{file}</p>)}</div>
+                        Files.length > 0 ? <div className='files-list'> {Files.map((file) => <p key={file} className="files-list-item">{file}</p>)}</div>
+                        : null
                     }
                 </fieldset>
 
