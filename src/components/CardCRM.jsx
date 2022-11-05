@@ -4,7 +4,8 @@ import './styles/CardCRM.css';
 
 const CardCRM = ({crm_id, crm_name, author, description, date}) => {
     const navigate = useNavigate();
-    const fDate = new Date(date);
+
+    const fDate = new Date(date).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
 
     const handleNavigate = (id) => {
         navigate(`/crm/${id}`);
@@ -15,7 +16,7 @@ const CardCRM = ({crm_id, crm_name, author, description, date}) => {
             <h2 className='card-title'>{crm_name}</h2>
             <p className='card-author'>{author}</p>
             <article className='card-article'>{description}</article>
-            <p className='card-date'>{`${fDate.getDate()}/${fDate.getMonth()}/${fDate.getFullYear()}`}</p>
+            <p className='card-date'>{fDate}</p>
         </div>
     )
 }

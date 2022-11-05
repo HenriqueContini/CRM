@@ -1,10 +1,11 @@
 import CardCRM from './CardCRM';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './styles/UserCRM.css';
 
 const UserCRM = () => {
     let user = JSON.parse(sessionStorage.getItem('user'));
+    const location = useLocation();
     const navigate = useNavigate();
     const [CRMs, setCRMs] = useState([]);
     const [FilteredCRMs, setFilteredCRMs] = useState([]);
@@ -19,7 +20,7 @@ const UserCRM = () => {
         } else {
             navigate('/')
         }
-    }, [])
+    }, [location.pathname.replace('/', '')])
 
     useEffect(() => {
         setFilteredCRMs(CRMs)

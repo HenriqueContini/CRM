@@ -1,23 +1,27 @@
 import CrmInfo from '../components/CrmInfo';
-import { AiFillFilePdf, AiFillFileWord, AiFillFilePpt, AiOutlineFileJpg, 
-    AiFillFileImage, AiFillFileText, AiFillCloseCircle, AiFillCheckCircle, AiFillClockCircle } from 'react-icons/ai';
+import {
+    AiFillFilePdf, AiFillFileWord, AiFillFilePpt, AiOutlineFileJpg,
+    AiFillFileImage, AiFillFileText, AiFillCloseCircle, AiFillCheckCircle, AiFillClockCircle
+} from 'react-icons/ai';
 import { BiCheckbox, BiCheckboxChecked } from 'react-icons/bi';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+
 import './styles/Crm.css';
 
 const Crm = () => {
     let user = JSON.parse(sessionStorage.getItem('user'));
 
-    const { register, handleSubmit, reset } = useForm();
     const { id } = useParams();
+    const { register, handleSubmit, reset } = useForm();
+    const navigate = useNavigate();
+
     const [CRM, setCRM] = useState({});
     const [Departments, setDepartments] = useState([]);
     const [CRMDecision, setCRMDecision] = useState('');
     const [CRMFiles, setCRMFiles] = useState([]);
     const [AllowIT, setAllowtIT] = useState(null);
-    const navigate = useNavigate();
 
     async function loadData() {
         try {
@@ -95,7 +99,7 @@ const Crm = () => {
                         <CrmInfo subtitle='Número da CRM' info={CRM.numero_crm} />
                         <CrmInfo subtitle='Versão' info={CRM.versao} />
                     </div>
-                    <CrmInfo subtitle='Data de criação' info={`${new Date(CRM.data_criacao).getDate()}/${new Date(CRM.data_criacao).getMonth()}/${new Date(CRM.data_criacao).getFullYear()}`} />
+                    <CrmInfo subtitle='Data de criação' info={new Date(CRM.data_criacao).toLocaleDateString('pt-BR', { timeZone: 'UTC' })} />
                     <CrmInfo subtitle='Setor' info={CRM.setor} />
                     <CrmInfo subtitle='Requerente' info={CRM.requerente} />
                     <CrmInfo subtitle='E-mail:' info={CRM.email} />
@@ -140,7 +144,6 @@ const Crm = () => {
                             {file.nome.split('.').pop() === 'docx' ? <AiFillFileWord className='crm-article-fileImage' /> : null}
                             {file.nome.split('.').pop() === 'pdf' ? <AiFillFilePdf className='crm-article-fileImage' /> : null}
                             {file.nome.split('.').pop() === 'ppt' ? <AiFillFilePpt className='crm-article-fileImage' /> : null}
-                            {file.nome.split('.').pop() === 'jpg' ? <AiFillFilePpt className='crm-article-fileImage' /> : null}
                             {file.nome.split('.').pop() === 'png' ? <AiFillFileImage className='crm-article-fileImage' /> : null}
                             {file.nome.split('.').pop() === 'jpg' ? <AiOutlineFileJpg className='crm-article-fileImage' /> : null}
                             {file.nome.split('.').pop() === 'text' ? <AiFillFileText className='crm-article-fileImage' /> : null}
@@ -155,10 +158,15 @@ const Crm = () => {
                         {Departments.map(d => (
                             <div className="crm-aware-item" key={d.id_aprovacao}>
                                 <p className="crm-aware-department">{d.setor}</p>
-                                <p className="crm-aware-user">{d.responsavel}</p>
-                                {d.decisao === 'Pendente' ? <AiFillClockCircle className='crm-aware-img aware-pending' /> : null}
-                                {d.decisao === 'Aprovado' ? <AiFillCheckCircle className='crm-aware-img aware-accepted' /> : null}
-                                {d.decisao === 'Rejeitado' ? <AiFillCloseCircle className='crm-aware-img aware-rejected' /> : null}
+                                <div className="crm-aware-wrapper">
+                                    <div className="crm-aware-decision">
+                                        {d.decisao === 'Pendente' ? <AiFillClockCircle className='crm-aware-img aware-pending' /> : null}
+                                        {d.decisao === 'Aprovado' ? <AiFillCheckCircle className='crm-aware-img aware-accepted' /> : null}
+                                        {d.decisao === 'Rejeitado' ? <AiFillCloseCircle className='crm-aware-img aware-rejected' /> : null}
+                                        <p className="crm-aware-user">{d.responsavel}</p>
+                                    </div>
+                                    <p className="crm-aware-comment">{d.comentario}</p>
+                                </div>
                             </div>
                         ))}
                     </div>

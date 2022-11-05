@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { AiFillFilePdf, AiFillFileWord, AiFillFilePpt, AiOutlineFileJpg, 
+    AiFillFileImage, AiFillFileText, AiFillCloseCircle, AiFillCheckCircle, AiFillClockCircle } from 'react-icons/ai';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BiCheckboxChecked, BiCheckbox } from 'react-icons/bi';
 
@@ -8,14 +10,15 @@ import './styles/Editcrm.css';
 const Editcrm = () => {
     const user = JSON.parse(sessionStorage.getItem('user'));
 
+    const { id } = useParams();
+    const { register, handleSubmit, reset } = useForm();
+    const navigate = useNavigate();
+
     const [Files, setFiles] = useState([]);
     const [ListDepartments, setListDepartments] = useState([]);
     const [Departments, setDepartments] = useState([]);
     const [CRM, setCRM] = useState({});
 
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const { register, handleSubmit, reset } = useForm();
 
     async function loadData() {
         try {
@@ -37,7 +40,7 @@ const Editcrm = () => {
     }, [])
 
     const handleFiles = (newFile) => {
-        setFiles([...Files, newFile]);
+        setFiles([...Files, newFile[0]]);
     }
 
     const handleDepartments = (newDepartment) => {
@@ -50,21 +53,24 @@ const Editcrm = () => {
         }
     }
 
-    function editCRM(data) {
+    function editCRM() {
         const editURL = `http://localhost:8080/crm/editcrm/${id}`;
-        CRM.setores = JSON.stringify(Departments);
+        const formData = new FormData();
 
-        delete data.arquivos;
+        Files.forEach((file) => {
+            formData.append("files", file);
+        })
+
+        for (let key in CRM) {
+            formData.append(key, CRM[key])
+        }
+
+        formData.append('setores', JSON.stringify(Departments));
 
         fetch(editURL, {
             method: 'POST',
-            body: JSON.stringify(CRM),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-
-        navigate('/home')
+            body: formData
+        }).then((r) => r.ok ? navigate('/home') : null)
     }
 
     const updateData = e => {
@@ -79,7 +85,7 @@ const Editcrm = () => {
         <section className='editcrm-container'>
             <h1 className='editcrm-title'>Crie uma nova CRM</h1>
 
-            <form className='editcrm-form' onSubmit={handleSubmit((d) => (editCRM(d), reset()))}>
+            <form className='editcrm-form' onSubmit={handleSubmit(() => (editCRM(), reset()))} encType="multipart/form-data">
                 <fieldset className='editcrm-fieldset'>
                     <legend className='editcrm-legend'>CRM</legend>
 
@@ -135,10 +141,11 @@ const Editcrm = () => {
                     <div className="editcrm-fieldset-files">
                         <p className='files-p'>Escolha um arquivo:</p>
                         <label htmlFor="arquivos" className='files-label'>Arquivo</label>
-                        <input id="arquivos" type="file" className='files-input' {...register('arquivos')} onChange={(e) => handleFiles(e.target.files[0].name)} />
+                        <input id="arquivos" type="file" className='files-input' {...register('file')} onChange={(e) => handleFiles(e.target.files)} />
                     </div>
                     {
-                        Files.length > 0 && <div className='files-list'> {Files.map((file) => <p key={file} className="files-list-item">{file}</p>)}</div>
+                        Files.length > 0 ? <div className='files-list'> {Files.map((file, i) => <p key={i} className="files-list-item">{file.name}</p>)}</div>
+                        : null
                     }
                 </fieldset>
 

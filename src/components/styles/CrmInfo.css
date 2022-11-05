@@ -1,17 +1,27 @@
+.crminfo-wrapper {
+    padding: 10px;
+    border-top: 1px solid var(--black);
+}
+
 .crminfo-subtitle {
     font-size: 1.25rem;
     color: var(--dark-blue);
     font-weight: 400;
-    padding: 10px 20px 0 20px;
 }
 
 .crminfo-info {
     display: block;
     font-size: 1.125rem;
     color: var(--black);
-    margin: 15px 20px;
+    margin: 10px;
     background-color: var(--grey);
     border: 1px solid var(--black);
     padding: 10px;
     border-radius: 5px;
+}
+
+@media screen and (max-width: 550px) {
+    .crminfo-info {
+        margin: 0;
+    }
 }
