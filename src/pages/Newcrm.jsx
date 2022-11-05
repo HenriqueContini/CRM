@@ -23,7 +23,6 @@ const Newcrm = () => {
 
     const handleFiles = (newFile) => {
         setFiles([...Files, newFile[0]]);
-        console.log(Files)
     }
 
     const handleDepartments = (newDepartment) => {

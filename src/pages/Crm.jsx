@@ -1,5 +1,6 @@
 import CrmInfo from '../components/CrmInfo';
-import { AiFillFilePdf, AiFillFileWord, AiFillCloseCircle, AiFillCheckCircle, AiFillClockCircle } from 'react-icons/ai';
+import { AiFillFilePdf, AiFillFileWord, AiFillFilePpt, AiOutlineFileJpg, 
+    AiFillFileImage, AiFillFileText, AiFillCloseCircle, AiFillCheckCircle, AiFillClockCircle } from 'react-icons/ai';
 import { BiCheckbox, BiCheckboxChecked } from 'react-icons/bi';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -14,6 +15,7 @@ const Crm = () => {
     const [CRM, setCRM] = useState({});
     const [Departments, setDepartments] = useState([]);
     const [CRMDecision, setCRMDecision] = useState('');
+    const [CRMFiles, setCRMFiles] = useState([]);
     const [AllowIT, setAllowtIT] = useState(null);
     const navigate = useNavigate();
 
@@ -25,6 +27,7 @@ const Crm = () => {
             setCRM(json.crm);
             setDepartments(json.setores);
             setAllowtIT(json.allowIT);
+            setCRMFiles(json.arquivos);
         } catch (e) {
             console.log(e);
         }
@@ -132,14 +135,18 @@ const Crm = () => {
 
                 <article className="crm-article">
                     <h2 className="crm-article-title">Arquivos</h2>
-                    <div className='crm-article-file'>
-                        <AiFillFilePdf className='crm-article-fileImage' />
-                        <p className="crm-article-fileName">ArquivoComplementar.pdf</p>
-                    </div>
-                    <div className='crm-article-file'>
-                        <AiFillFileWord className='crm-article-fileImage' />
-                        <p className="crm-article-fileName">TextoComplementar.docx</p>
-                    </div>
+                    {CRMFiles.map((file) => (
+                        <div className='crm-article-file' key={file.id}>
+                            {file.nome.split('.').pop() === 'docx' ? <AiFillFileWord className='crm-article-fileImage' /> : null}
+                            {file.nome.split('.').pop() === 'pdf' ? <AiFillFilePdf className='crm-article-fileImage' /> : null}
+                            {file.nome.split('.').pop() === 'ppt' ? <AiFillFilePpt className='crm-article-fileImage' /> : null}
+                            {file.nome.split('.').pop() === 'jpg' ? <AiFillFilePpt className='crm-article-fileImage' /> : null}
+                            {file.nome.split('.').pop() === 'png' ? <AiFillFileImage className='crm-article-fileImage' /> : null}
+                            {file.nome.split('.').pop() === 'jpg' ? <AiOutlineFileJpg className='crm-article-fileImage' /> : null}
+                            {file.nome.split('.').pop() === 'text' ? <AiFillFileText className='crm-article-fileImage' /> : null}
+                            <a className="crm-article-fileName" href={file.fileURL} type={file.mimetype} download={file.nome}>{file.nome}</a>
+                        </div>
+                    ))}
                 </article>
 
                 <article className="crm-article">

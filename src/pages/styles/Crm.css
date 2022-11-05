@@ -56,6 +56,12 @@
     padding: 10px;
 }
 
+.crm-article-fileName {
+    color: var(--black);
+    text-decoration: none;
+    font-size: 1.125rem;
+}
+
 .crm-article-fileImage {
     font-size: 1.5rem;
     color: var(--dark-blue);
