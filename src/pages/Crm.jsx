@@ -19,6 +19,7 @@ const Crm = () => {
 
     const [CRM, setCRM] = useState({});
     const [Departments, setDepartments] = useState([]);
+    const [CRMVersions, setCRMVersions] = useState([]);
     const [CRMDecision, setCRMDecision] = useState('');
     const [CRMFiles, setCRMFiles] = useState([]);
     const [AllowIT, setAllowtIT] = useState(null);
@@ -29,6 +30,7 @@ const Crm = () => {
             let response = await fetch(urlAPI);
             let json = await response.json();
             setCRM(json.crm);
+            setCRMVersions(json.versoes);
             setDepartments(json.setores);
             setAllowtIT(json.allowIT);
             setCRMFiles(json.arquivos);
@@ -43,7 +45,7 @@ const Crm = () => {
         } else {
             navigate('/');
         }
-    }, []);
+    }, [location.pathname]);
 
     async function setDecision(data) {
         data.aprovado = CRMDecision;
@@ -91,6 +93,7 @@ const Crm = () => {
         <section className="crm-container">
             <h1 className="crm-title">Visualizar CRM</h1>
 
+
             <section className="crm-wrapper">
                 <article className='crm-article'>
                     <h2 className='crm-article-title'>CRM</h2>
@@ -100,6 +103,19 @@ const Crm = () => {
                         <CrmInfo subtitle='Versão' info={CRM.versao} />
                     </div>
                     <CrmInfo subtitle='Data de criação' info={new Date(CRM.data_criacao).toLocaleDateString('pt-BR', { timeZone: 'UTC' })} />
+                </article>
+
+                <section className='crm-versions'>
+                    <h2 className="crm-versions-title">Versões:</h2>
+                    <div className='crm-versions-wrapper'>
+                        {CRMVersions.map((crm) => (
+                            <Link key={crm.id} to={`/crm/${crm.id}`} className={crm.id === Number(id) ? 'crm-versions-link active' : 'crm-versions-link'}>{crm.versao}</Link>
+                        ))}
+                    </div>
+                </section>
+                
+                <article className='crm-article'>
+                    <h2 className='crm-article-title'>Requerente</h2>
                     <CrmInfo subtitle='Setor' info={CRM.setor} />
                     <CrmInfo subtitle='Requerente' info={CRM.requerente} />
                     <CrmInfo subtitle='E-mail:' info={CRM.email} />
@@ -157,15 +173,21 @@ const Crm = () => {
                     <div className="crm-aware-list">
                         {Departments.map(d => (
                             <div className="crm-aware-item" key={d.id_aprovacao}>
-                                <p className="crm-aware-department">{d.setor}</p>
-                                <div className="crm-aware-wrapper">
-                                    <div className="crm-aware-decision">
-                                        {d.decisao === 'Pendente' ? <AiFillClockCircle className='crm-aware-img aware-pending' /> : null}
-                                        {d.decisao === 'Aprovado' ? <AiFillCheckCircle className='crm-aware-img aware-accepted' /> : null}
-                                        {d.decisao === 'Rejeitado' ? <AiFillCloseCircle className='crm-aware-img aware-rejected' /> : null}
-                                        <p className="crm-aware-user">{d.responsavel}</p>
-                                    </div>
-                                    <p className="crm-aware-comment">{d.comentario}</p>
+                                <div className='crm-aware-wrapper'>
+
+                                    <p className="crm-aware-department">{d.setor}</p>
+                                    {d.decisao === 'Pendente' ? <AiFillClockCircle className='crm-aware-img aware-pending' /> : null}
+                                    {d.decisao === 'Aprovado' ? <AiFillCheckCircle className='crm-aware-img aware-accepted' /> : null}
+                                    {d.decisao === 'Rejeitado' ? <AiFillCloseCircle className='crm-aware-img aware-rejected' /> : null}
+
+                                    {d.responsavel ?
+                                        <>
+                                            <p className="crm-aware-user">{d.responsavel}</p>
+                                            {d.comentario ? <p className="crm-aware-comment">{d.comentario}</p> : null}
+                                        </>
+
+                                        : null
+                                    }
                                 </div>
                             </div>
                         ))}
@@ -232,7 +254,7 @@ const Crm = () => {
                 : null
             }
 
-            {AllowIT === false && (Departments.find(d => d.decisao === 'Pendente' && d.cod_setor === user.setor)) !== undefined ?
+            {AllowIT === false && user.setor !== 1 && (Departments.find(d => d.decisao === 'Pendente' && d.cod_setor === user.setor)) !== undefined ?
                 <section className='crm-decision'>
                     <h2 className="crm-decision-title">Ciência</h2>
 

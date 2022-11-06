@@ -17,7 +17,7 @@ const Navbar = () => {
             navigate('/');
         }
         setActiveLink(location.pathname.replace('/', ''));
-    }, [location.pathname.replace('/', '')])
+    }, [location.pathname])
 
     return (
         <>
