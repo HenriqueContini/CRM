@@ -11,10 +11,24 @@
     cursor: pointer;
     transition: 1s;
     justify-content: space-between;
+    border: 1px solid var(--dark-blue);
 }
 
 .card-crm:hover {
     background-color: #c4d0e1;
+}
+
+.card-crm-data {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--dark-blue);
+    padding-bottom: 10px;
+}
+
+.card-number, .card-version {
+    color: var(--black);
+    font-size: 1rem;
 }
 
 .card-title {
@@ -23,9 +37,36 @@
     font-size: 1.5rem;
 }
 
+.card-status {
+    border: 1px solid var(--black);
+    background-color: var(--white);
+    align-self: center;
+    padding: 5px;
+    border-radius: 5px;
+    color: var(--white);
+    text-align: center;
+    font-size: 1.125rem;
+}
+
+.card-status.pending {
+    color: #8d7214;
+    border-color: #8d7214;
+}
+
+.card-status.accepted {
+    color: #3c8143;
+    border-color: #3c8143;
+}
+
+.card-status.rejected {
+    color: #924343;
+    border-color: #924343;
+}
+
 .card-author, .card-date {
     color: var(--black);
     text-align: center;
+    font-size: 1.125rem;
 }
 
 .card-article {

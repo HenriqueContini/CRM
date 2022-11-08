@@ -36,6 +36,10 @@
 }
 
 @media screen and (max-width: 550px){
+    .awarecrm-section {
+        padding: 20px 0;
+    }
+
     .awarecrm-form {
         width: 100%;
         gap: 10px;

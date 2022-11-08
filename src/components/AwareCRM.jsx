@@ -1,5 +1,4 @@
 import CardCRM from './CardCRM';
-import { BiSearchAlt2 } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './styles/AwareCRM.css';
@@ -38,7 +37,7 @@ const AwareCRM = () => {
 
             <div className='awarecrm-cards'>
                 {FilteredCRMs.map(crm => (
-                    <CardCRM key={crm.id} crm_id={crm.id} crm_name={crm.nome_crm} author={crm.requerente} description={crm.descricao} date={crm.data_criacao} />
+                    <CardCRM key={crm.id} crm_number={crm.numero_crm} status={crm.status_crm} crm_version={crm.versao} crm_id={crm.id} crm_name={crm.nome_crm} author={crm.requerente} description={crm.descricao} date={crm.data_criacao}/>
                 ))}
             </div>
         </section>

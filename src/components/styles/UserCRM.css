@@ -36,6 +36,10 @@
 }
 
 @media screen and (max-width: 550px){
+    .usercrm-section {
+        padding: 20px 0;
+    }
+
     .usercrm-form {
         width: 100%;
         gap: 10px;

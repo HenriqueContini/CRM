@@ -102,7 +102,10 @@ const Crm = () => {
                         <CrmInfo subtitle='Número da CRM' info={CRM.numero_crm} />
                         <CrmInfo subtitle='Versão' info={CRM.versao} />
                     </div>
-                    <CrmInfo subtitle='Data de criação' info={new Date(CRM.data_criacao).toLocaleDateString('pt-BR', { timeZone: 'UTC' })} />
+                    <div className='crm-article-flex'>
+                        <CrmInfo subtitle='Data de criação' info={new Date(CRM.data_criacao).toLocaleDateString('pt-BR', { timeZone: 'UTC' })} />
+                        <CrmInfo subtitle='Status' info={CRM.status_crm} />
+                    </div>
                 </article>
 
                 <section className='crm-versions'>
@@ -113,7 +116,7 @@ const Crm = () => {
                         ))}
                     </div>
                 </section>
-                
+
                 <article className='crm-article'>
                     <h2 className='crm-article-title'>Requerente</h2>
                     <CrmInfo subtitle='Setor' info={CRM.setor} />
@@ -168,7 +171,7 @@ const Crm = () => {
                     ))}
                 </article>
 
-                <article className="crm-article">
+                <article className="crm-article crm-article-aware">
                     <h2 className="crm-article-title">Setores envolvidos</h2>
                     <div className="crm-aware-list">
                         {Departments.map(d => (
