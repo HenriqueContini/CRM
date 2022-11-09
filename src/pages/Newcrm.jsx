@@ -35,7 +35,7 @@ const Newcrm = () => {
         }
     }
 
-    function createCRM(data) {
+    async function createCRM(data) {
         const createURL = 'http://localhost:8080/crm/create-crm';
         const formData = new FormData();
         
@@ -53,12 +53,16 @@ const Newcrm = () => {
 
         formData.append("setores", JSON.stringify(Departments));
 
-        fetch(createURL, {
+        const response = await fetch(createURL, {
             method: 'POST',
             body: formData,
         })
 
-        navigate('/home');
+        const json = await response.json();
+
+        if (json.error === false) {
+            navigate('/home');
+        }
     }
 
     return (

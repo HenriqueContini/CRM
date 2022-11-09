@@ -31,21 +31,13 @@ const Crm = () => {
             let json = await response.json();
             setCRM(json.crm);
             setCRMVersions(json.versoes);
-            setDepartments(json.setores);
             setAllowtIT(json.allowIT);
             setCRMFiles(json.arquivos);
+            setDepartments(json.setores);
         } catch (e) {
             console.log(e);
         }
     }
-
-    useEffect(() => {
-        if (user) {
-            loadData();
-        } else {
-            navigate('/');
-        }
-    }, [location.pathname]);
 
     async function setDecision(data) {
         data.aprovado = CRMDecision;
@@ -86,6 +78,14 @@ const Crm = () => {
             console.log(e);
         }
     }
+
+    useEffect(() => {
+        if (user) {
+            loadData();
+        } else {
+            navigate('/');
+        }
+    }, [location.pathname]);
 
     return (
         <section className="crm-container">
@@ -173,11 +173,10 @@ const Crm = () => {
                     : null
                 }
 
-
                 <article className="crm-article crm-article-aware">
                     <h2 className="crm-article-title">Setores envolvidos</h2>
                     <div className="crm-aware-list">
-                        {Departments.map(d => (
+                        {Departments.map((d) => (
                             <div className="crm-aware-item" key={d.id_aprovacao}>
                                 <div className='crm-aware-wrapper'>
 

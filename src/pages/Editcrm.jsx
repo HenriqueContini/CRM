@@ -53,7 +53,7 @@ const Editcrm = () => {
         }
     }
 
-    function editCRM() {
+    async function editCRM() {
         const editURL = `http://localhost:8080/crm/editcrm/${id}`;
         const formData = new FormData();
 
@@ -67,10 +67,16 @@ const Editcrm = () => {
 
         formData.append('setores', JSON.stringify(Departments));
 
-        fetch(editURL, {
+        const response = await fetch(editURL, {
             method: 'POST',
             body: formData
-        }).then((r) => r.ok ? navigate('/home') : null)
+        })
+
+        const json = await response.json();
+
+        if (json.error === false) {
+            navigate('/home');
+        }
     }
 
     const updateData = e => {
