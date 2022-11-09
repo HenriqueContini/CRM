@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Crm from './pages/Crm';
 import Editcrm from './pages/Editcrm';
+import ITUsers from './pages/ITUsers';
 
 import './index.css'
 
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     <Route path='/profile' element={<Profile />} />
                     <Route path='/crm/:id' element={<Crm />} />
                     <Route path='/editcrm/:id' element={<Editcrm />} />
+                    <Route path='/itusers' element={<ITUsers />} />
                 </Route>
             </Routes>
         </BrowserRouter>

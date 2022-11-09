@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import "./styles/Login.css";
 
 const Login = () => {
-    const urlAPI = 'http://localhost:8080/user/login';
     const { register, handleSubmit, reset } = useForm();
     const [Error, setError] = useState(false);
     const navigate = useNavigate();
-
+    
     async function saveUser(data) {
         try {
+            const urlAPI = 'http://localhost:8080/user/login';
             const response = await fetch(urlAPI, {
                 method: "POST",
                 body: JSON.stringify(data),

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import './styles/AwareCRM.css';
 
 const AwareCRM = () => {
-    let user = JSON.parse(sessionStorage.getItem('user'));
+    const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
     const navigate = useNavigate();
     const [CRMs, setCRMs] = useState([]);
     const [FilteredCRMs, setFilteredCRMs] = useState([]);

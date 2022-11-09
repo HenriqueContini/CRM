@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import './styles/Crm.css';
 
 const Crm = () => {
-    let user = JSON.parse(sessionStorage.getItem('user'));
+    const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
 
     const { id } = useParams();
     const { register, handleSubmit, reset } = useForm();

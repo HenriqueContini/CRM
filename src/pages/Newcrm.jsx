@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import './styles/Newcrm.css';
 
 const Newcrm = () => {
-    const user = JSON.parse(sessionStorage.getItem('user'));
+    const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
     

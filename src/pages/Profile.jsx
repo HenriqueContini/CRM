@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import './styles/Profile.css';
 
 const Profile = () => {
-    const user = JSON.parse(sessionStorage.getItem('user'));
+    const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
     const { register, handleSubmit, reset } = useForm();
     const [UserData, setUserData] = useState({});
 
