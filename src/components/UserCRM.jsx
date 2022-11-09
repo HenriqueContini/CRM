@@ -20,7 +20,7 @@ const UserCRM = () => {
         } else {
             navigate('/')
         }
-    }, [location.pathname.replace('/', '')])
+    }, [location.pathname])
 
     useEffect(() => {
         setFilteredCRMs(CRMs)

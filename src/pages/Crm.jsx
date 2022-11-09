@@ -71,8 +71,6 @@ const Crm = () => {
         data.aprovado = CRMDecision;
         data.user = user.matricula;
 
-        console.log(data)
-
         try {
             let urlDecision = `http://localhost:8080/approval/putitdecision/${id}`;
             await fetch(urlDecision, {
@@ -156,20 +154,25 @@ const Crm = () => {
                     : null
                 }
 
-                <article className="crm-article">
-                    <h2 className="crm-article-title">Arquivos</h2>
-                    {CRMFiles.map((file) => (
-                        <div className='crm-article-file' key={file.id}>
-                            {file.nome.split('.').pop() === 'docx' ? <AiFillFileWord className='crm-article-fileImage' /> : null}
-                            {file.nome.split('.').pop() === 'pdf' ? <AiFillFilePdf className='crm-article-fileImage' /> : null}
-                            {file.nome.split('.').pop() === 'ppt' ? <AiFillFilePpt className='crm-article-fileImage' /> : null}
-                            {file.nome.split('.').pop() === 'png' ? <AiFillFileImage className='crm-article-fileImage' /> : null}
-                            {file.nome.split('.').pop() === 'jpg' ? <AiOutlineFileJpg className='crm-article-fileImage' /> : null}
-                            {file.nome.split('.').pop() === 'text' ? <AiFillFileText className='crm-article-fileImage' /> : null}
-                            <a className="crm-article-fileName" href={file.fileURL} type={file.mimetype} download={file.nome}>{file.nome}</a>
-                        </div>
-                    ))}
-                </article>
+                {CRMFiles.length > 0 ?
+                    <article className="crm-article">
+                        <h2 className="crm-article-title">Arquivos</h2>
+                        {CRMFiles.map((file) => (
+                            <div className='crm-article-file' key={file.id}>
+                                {file.nome.split('.').pop() === 'docx' ? <AiFillFileWord className='crm-article-fileImage' /> : null}
+                                {file.nome.split('.').pop() === 'pdf' ? <AiFillFilePdf className='crm-article-fileImage' /> : null}
+                                {file.nome.split('.').pop() === 'ppt' ? <AiFillFilePpt className='crm-article-fileImage' /> : null}
+                                {file.nome.split('.').pop() === 'png' ? <AiFillFileImage className='crm-article-fileImage' /> : null}
+                                {file.nome.split('.').pop() === 'jpg' ? <AiOutlineFileJpg className='crm-article-fileImage' /> : null}
+                                {file.nome.split('.').pop() === 'text' ? <AiFillFileText className='crm-article-fileImage' /> : null}
+                                <a className="crm-article-fileName" href={file.fileURL} type={file.mimetype} download={file.nome}>{file.nome}</a>
+                            </div>
+                        ))}
+                    </article>
+
+                    : null
+                }
+
 
                 <article className="crm-article crm-article-aware">
                     <h2 className="crm-article-title">Setores envolvidos</h2>
