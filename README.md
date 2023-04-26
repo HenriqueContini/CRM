@@ -3,7 +3,9 @@
 Projeto desenvolvido durante o programa QQTech da: Lojas Quero-Quero S.A.
 
 ### 📝 Descrição
-Este é o Front-end do projeto. Neste projeto, um colaborador de uma determinada área poderia solicitar à TI uma mudança no sistema por meio da CRM. 
+Este é o Front-end do projeto, desenvolvido com React + JavaScript. 
+
+Neste projeto, um colaborador de uma determinada área poderia solicitar à TI uma mudança no sistema por meio da CRM. 
 Esta CRM poderia ser aprovado ou rejeitada por outros colaboradores e, também, ser editada pelo criador mantendo um histórico de versões da mesma.
 
 ### 🛠️ Algumas funcionalidades
